@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hjs.study.spring.dao.IMenuDao"><!-- 指定接口类路径 -->
+	<!--配置一个resultMap 指定返回的类型 -->  
+    <resultMap id="menuList" type="com.hjs.study.spring.bean.Menu">  
+        <id column="id" property="id" />  
+        <result column="text" property="text" />  
+        <result column="isfolder" property="isFolder"/>
+        <result column="url" property="url" />  
+        <result column="location" property="location" /> 
+        <result column="state" property="state"/> 
+        <result column="parent" property="parent" />
+        <result column="parenttext" property="parentText" />
+        <result column="template" property="template"/>  
+        <association property="children" column="parent=id" select="queryChildrenMenus"  />
+    </resultMap> 
+
+<select id="queryMainMenus" resultMap="menuList">
+	SELECT *,case isfolder when '1' then 'closed' else 'open' end state FROM menus where parent=0
+</select>
+
+<!-- case when 处理目录和非目录 -->
+<select id="queryChildrenMenus"  parameterType="com.hjs.study.spring.bean.Menu" resultMap="menuList">
+	SELECT t1.*,t2.text as parenttext,case t1.isfolder when '1' then 'closed' else 'open' end state FROM menus t1 left join menus t2
+	on t1.parent = t2.id
+	WHERE t1.parent=#{parent} and t1.parent!=0
+</select>
+
+<select id="queryParentMenu"  parameterType="com.hjs.study.spring.bean.Menu" resultType="com.hjs.study.spring.bean.Menu">
+	SELECT * FROM menus WHERE id=#{id}
+</select>
+
+<select id="createMenu"  parameterType="com.hjs.study.spring.bean.Menu">
+	insert into menus set text=#{text},url=#{url},parent=#{parent},isfolder=#{isFolder},template=#{template}
+</select>
+
+<select id="editMenu"  parameterType="com.hjs.study.spring.bean.Menu">
+	update menus set text=#{text},url=#{url},parent=#{parent},isfolder=#{isFolder},template=#{template}
+	where id=#{id}
+</select>
+
+<select id="deleteMenu"  parameterType="com.hjs.study.spring.bean.Menu">
+	delete from menus where id=#{id}
+</select>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hjs.study.spring.dao.IArticleDao"><!-- 指定接口类路径 -->
+
+<resultMap type="com.hjs.study.spring.bean.Article" id="articles">
+	<id column="id" property="id" />  
+    <result column="title" property="title" />  
+    <result column="content" property="content" />  
+    <result column="marks" property="marks" />  
+</resultMap>
+
+<select id="saveNewBasicArticle" parameterType="com.hjs.study.spring.bean.Article">
+	insert into article set title=#{title},content=#{content},marks=#{marks}
+</select>
+
+<select id="saveEditBasicArticle" parameterType="com.hjs.study.spring.bean.Article">
+	update article set title=#{title},content=#{content},marks=#{marks} where id=#{id}
+</select>
+
+<select id="queryBasicArticle" parameterType="com.hjs.study.spring.bean.Article" resultMap="articles">
+	select * from article where 1=1 and title=#{title}
+</select>
+</mapper>
