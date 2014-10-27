@@ -4,6 +4,21 @@
 
 <script>
 	$(function(){
+		
+		$("#emenus").tree({
+			onClick:function(node){
+				$(".nowrite").attr("disabled",true);	//点击初始化
+				$("#dataset").fadeIn("normal");
+				$("#mid").val(node.id);
+				$("#mtitle").val(node.text);
+				$("#mfolder").val(node.isFolder);
+				$("#mparent").val(node.parent);
+				$("#mparenttext").val(node.parentText);
+				$("#murl").val(node.url);
+				$("#mtemplate").val(node.template);
+			}
+		});
+		
 		$("#emenus").tree({
 			onCheck:function(node,checked){
 				if(!checked){	//取消选中

@@ -4,7 +4,7 @@
 
 <html>
 <head>
-<title>Spring MVC</title>
+<title>笔记管理系统</title>
 </head>
 <%@ include file="../include.jsp" %>
 
@@ -67,7 +67,7 @@
     <div data-options="region:'center'" style="padding:0px;background:#eee;">
     	<div id="tabs" class="easyui-tabs" data-options="fit:true">   
 		    <div id="tab0" title="主页" style="padding:20px;text-align: center;background-image: url('images/lizhi.jpg');background-position: center;background-repeat: no-repeat;">   
-		        	欢迎来到Spring的世界！ 
+		        <font size="4" color="green">欢迎来到知识的海洋！ </font>
 		    </div>  
 		</div> 
     </div>   

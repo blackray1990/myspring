@@ -22,7 +22,7 @@ public class ArticleController extends BaseController{
 
 	
 	/**
-	 * 
+	 *  进入菜单
 	 */
 	@RequestMapping("common")
 	public String basicKnowledge(HttpServletRequest request,Article article,ModelMap map){
