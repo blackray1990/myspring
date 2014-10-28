@@ -112,6 +112,13 @@
             <version>${springframework.version}</version>  
         </dependency>  
 		
+		<!-- cxf webservice -->
+		<dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-bundle</artifactId>
+            <version>2.4.2</version>
+        </dependency>
+		
 		<!-- json支持 -->
 		<dependency>
 		  <groupId>org.kohsuke.stapler</groupId>
