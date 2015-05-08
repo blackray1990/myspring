@@ -2,6 +2,11 @@ package com.hjs.study.spring.bean;
 
 import java.util.List;
 
+/**
+ * 菜单实体类
+ * @author Administrator
+ *
+ */
 public class Menu {
 
 	private int id;
@@ -9,6 +14,8 @@ public class Menu {
 	private String text;
 	
 	private String url;
+	
+	private String urltent;
 	
 	private int location;
 	
@@ -106,6 +113,14 @@ public class Menu {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public String getUrltent() {
+		return urltent;
+	}
+
+	public void setUrltent(String urltent) {
+		this.urltent = urltent;
 	}
 	
 	
