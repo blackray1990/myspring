@@ -1,0 +1,29 @@
+#common css file
+
+#普通中等按钮
+.com-btn {
+	color: black;
+	background: linear-gradient(to bottom, #FFF 0px, #EEE 100%) repeat-x scroll 0% 0% transparent;
+	border: 1px solid #BBB;
+	border-radius: 5px;	<!--边框圆角-->
+}
+
+.shorttext {
+	width: 70px;
+}
+
+.kaptcha {
+	height: 22px;
+	width: 70px;
+	position: relative;
+	top: 6px;
+}
+
+.errorinfo {
+	color: red;
+}
+
+.cuslarge {
+	height: 31px;
+	width: 50px;
+}
