@@ -14,7 +14,12 @@
 				$("#mfolder").val(node.isFolder);
 				$("#mparent").val(node.parent);
 				$("#mparenttext").val(node.parentText);
-				$("#murl").val(node.url);
+				alert(node.urltent);
+				if(node.url){
+					$("#murl").val(node.url);
+				}else{
+					$("#murl").val(node.urltent);
+				}
 				$("#mtemplate").val(node.template);
 			}
 		});
@@ -33,7 +38,13 @@
 				$("#mfolder").val(node.isFolder);
 				$("#mparent").val(node.parent);
 				$("#mparenttext").val(node.parentText);
-				$("#murl").val(node.url);
+				alert(node.urltent);
+				if(node.url){
+					$("#murl").val(node.url);
+				}else{
+					$("#murl").val(node.urltent);
+				}
+				
 				$("#mtemplate").val(node.template);
 			}
 		});
@@ -138,7 +149,7 @@
     				</tr>
     				<tr>
     					<td>模板</td><td><input type="text" name="template" id="mtemplate" class="nowrite"><br/></td>
-    					<td>id</td><td><input type="text" name="id" id="mid" value="0"><input type="text" id="operation" name="operation"><br/></td>
+    					<td style="display:none;">id</td><td style="display:none;"><input type="text" name="id" id="mid" value="0"><input type="text" id="operation" name="operation"><br/></td>
     				</tr>
     				<tr height="100px">
     					<td colspan="4">

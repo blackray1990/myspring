@@ -35,7 +35,7 @@
 			$("#content").addClass("content");
 			$("#content").html("${article.content}");
 			$("#panel").hide();		//默认隐藏编辑器
-			$("#switch").text("打开");
+			$("#switch").text("编辑");
 		}
 		
 		//发布
@@ -71,15 +71,15 @@
 			
 		});
 		
-		//打开或隐藏编辑面板
+		//编辑或隐藏编辑面板
 		$("#switch").click(function(){
 			var oldcontent = "${article.content}";
 			$("#inputArea").htmlarea('html',oldcontent);
 			$('#panel').slideToggle('normal');
-			if($("#switch").text()=="打开"){
-				$("#switch").text("关闭");
+			if($("#switch").text()=="编辑"){
+				$("#switch").text("取消");
 			}else{
-				$("#switch").text("打开");
+				$("#switch").text("编辑");
 			}
 		});
 		
@@ -88,7 +88,7 @@
 <style>
 	.above {
 		background:#F5F5F5;float:right;
-    	position:fixed !important; top:100px;
+    	position:fixed !important; top:10px;
     	position:absolute; z-index:300; top:expression(offsetParent.scrollTop+100);right:30px;
     	}
 	.onoff{
@@ -101,7 +101,7 @@
 </style>
 <body>
 	<div align="center" style="font-weight: bold;font-size: large;"><div id="showtitle"></div></div><br/>
-	<div id="switch" class="above onoff" title="打开/关闭编辑器">关闭</div>
+	<div id="switch" class="above onoff">取消</div>
 	<div id="content" style="height:100%;"></div>
 	
 

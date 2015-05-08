@@ -17,12 +17,22 @@
 					$('#tabs').tabs('select',node.text);
 					return ;
 				}
-				if(node.children==null||node.children==""){	//如果不是目录，打开tab
+				var isFolder = node.isFolder;
+				if(isFolder){	//目录不处理事件
+					return;
+				}else{
 					// 创建一个新的tab    
 					var title = encodeURIComponent(node.text);
 					var url = "";
 					if(node.template==""){	//不使用iframe
-						url = node.url+"?title="+title;
+						if(node.url){
+							url = node.url+"?title="+title;
+						}else{
+							url = node.urltent;
+							window.open(url);
+							return;
+						}
+						
 					}else{		//使用iframe 共同的模板node.url
 						url = node.template+"?title="+title+"&url="+encodeURIComponent(node.url);
 					}
@@ -42,6 +52,7 @@
 					    onSelect:function(){}
 					});
 				}
+
 			}
 		});
 		
@@ -54,10 +65,9 @@
 	})
 </script>
 <body class="easyui-layout">   
-    <div id="north" data-options="region:'north'" style="overflow: hidden;height:120px;border-top: none;background-repeat: no-repeat;">
-    	<div style="margin-top: 30px;margin-left: 30px;width:75px;font-family: 黑体"><!-- background-image: url('images/header2.jpg'); -->
-    		<img src="images/cook_java.jpg" style="height: 60px;"><br/>
-    		<center>COOK JAVA</center>
+    <div id="north" data-options="region:'north'" style="overflow: hidden;height:120px;border-top: none;background-size:cover;background-image: url('images/header2.jpg')">
+    	<div style="margin-top: 10px;margin-left: 10px;width:75px;font-family: 黑体;">
+    		<img src="images/cook_java.jpg" style="height: 100px;"><br/>
     	</div>
     </div>   
     <div data-options="region:'south'" style="height:auto;"><div align="center">BlackRay版权所有</div></div>      
