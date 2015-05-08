@@ -57,15 +57,22 @@
 		});
 		
 		$("#tabs").tabs({
-					onSelect:function(){
-						
-					}
-					});
-		
+			onSelect:function(){
+				
+			}
+		});
+		//退出登录
+		$("#logout").click(function(){
+			if(confirm("确认退出系统吗?")){
+				document.location.href="${contextPath}";	
+			}
+		});
 	})
 </script>
 <body class="easyui-layout">   
+	
     <div id="north" data-options="region:'north'" style="overflow: hidden;height:120px;border-top: none;background-size:cover;background-image: url('images/header2.jpg')">
+    	<div style="right: 20px;position: absolute;">欢迎你：${username } &nbsp;<a href="#" id="logout">退出登录</a></div>
     	<div style="margin-top: 10px;margin-left: 10px;width:75px;font-family: 黑体;">
     		<img src="images/cook_java.jpg" style="height: 100px;"><br/>
     	</div>
@@ -76,10 +83,11 @@
     </div>   
     <div data-options="region:'center'" style="padding:0px;background:#eee;">
     	<div id="tabs" class="easyui-tabs" data-options="fit:true">   
-		    <div id="tab0" title="主页" style="padding:20px;text-align: center;background-image: url('images/lizhi.jpg');background-position: center;background-repeat: no-repeat;">   
+		    <div id="tab0" title="主页" style="padding:20px;text-align: center;background-position: center;background-repeat: no-repeat;"><!-- background-image: url('images/lizhi.jpg'); -->
 		        <font size="4" color="green">欢迎来到知识的海洋！ </font>
 		    </div>  
 		</div> 
+		
     </div>   
 </body> 
 </html>

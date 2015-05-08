@@ -51,7 +51,7 @@
 	 -->
 	<bean id="logAspect" class="com.hjs.study.spring.controller.LogAspect">
 	</bean>
-	<aop:config proxy-target-class="false">	
+ 	<aop:config proxy-target-class="false">	
 		<aop:aspect ref="logAspect">
 			<aop:pointcut expression="execution(* *.getU*(..))" id="pointcut-1"/>
 			<aop:before method="signBeforeM" pointcut-ref="pointcut-1"/>
@@ -65,5 +65,4 @@
 			<aop:before method="handleContent" pointcut-ref="pointcut-2"/>
 		</aop:aspect>
 	</aop:config>
-	 
 </beans>

@@ -35,12 +35,18 @@ public class LoginController extends BaseController{
 	@RequestMapping(value="logonsys")
 //	@ResponseBody
 	public String logonSys(HttpServletRequest request,ModelMap map,@ModelAttribute User user) throws Exception{
-		
+		String sysKaptcha = request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY).toString();
+		if(!sysKaptcha.equalsIgnoreCase(user.getKaptcha())){
+			map.addAttribute("errordtl", "ÑéÖ¤Âë´íÎó!");
+			return "default";
+		}
 		User user1 = loginService.getUser(user);
 		if(user1==null){
 			map.put("msg", FAIlURE);
 			return "default";
 		}
+		map.addAttribute("username",user1.getUserName());
+		request.getSession().setAttribute("contextPaths", request.getContextPath());
 		return "login/logon";
 	}
 	

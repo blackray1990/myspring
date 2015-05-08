@@ -1,5 +1,7 @@
 package com.hjs.study.spring.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.hjs.study.spring.bean.Article;
 
 public class LogAspect {

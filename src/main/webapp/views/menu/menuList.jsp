@@ -101,7 +101,7 @@
 				if(data=="success"){
 					$.messager.alert("提示","操作成功");
 					var tab = $('#tabs').tabs('getSelected');
-					tab.panel('refresh','menu/menuList.jsp');	//刷新面板
+					tab.panel('refresh','menu/manager.do');	//刷新面板
 				}else{
 					$.messager.alert("提示","<br/>错误："+data);
 				}

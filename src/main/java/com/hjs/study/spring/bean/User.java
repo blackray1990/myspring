@@ -14,6 +14,8 @@ public class User {
 	
 	private String desc;
 	
+	private String kaptcha;
+	
 	private int isEnable;
 
 	
@@ -74,6 +76,14 @@ public class User {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getKaptcha() {
+		return kaptcha;
+	}
+
+	public void setKaptcha(String kaptcha) {
+		this.kaptcha = kaptcha;
 	}
 	
 }

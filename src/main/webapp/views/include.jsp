@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%
+	String contextPath = (String)session.getAttribute("contextPaths");
+%>
 
 <script type="text/javascript" src="plugins/jquery.min.js"></script> 
 <script type="text/javascript" src="plugins/jquery.form.js"></script>
