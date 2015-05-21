@@ -8,5 +8,7 @@
 		<mapper resource="com/hjs/study/spring/dao/IUserDao.xml"/>
 		<mapper resource="com/hjs/study/spring/dao/IMenuDao.xml"/>
 		<mapper resource="com/hjs/study/spring/dao/IArticleDao.xml"/>
+		
+		<mapper resource="com/hjs/study/spring/ext/dao/ILogonHistoryDao.xml"/>
 	</mappers>
 </configuration>

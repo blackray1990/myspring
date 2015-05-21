@@ -122,6 +122,4 @@ public class Menu {
 	public void setUrltent(String urltent) {
 		this.urltent = urltent;
 	}
-	
-	
 }

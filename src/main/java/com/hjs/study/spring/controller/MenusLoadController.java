@@ -58,6 +58,7 @@ public class MenusLoadController extends BaseController{
 	@ResponseBody()
 	public String operatMenu(Menu menu,HttpServletRequest request){
 		String operation = request.getParameter("operation");
+
 		if("add".equals(operation)){
 			menuService.createMenu(menu);
 		}

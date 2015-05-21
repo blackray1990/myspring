@@ -1,16 +1,18 @@
 package com.hjs.study.spring.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hjs.study.spring.bean.User;
+import com.hjs.study.spring.ext.dao.ILogonHistoryDao;
+import com.hjs.study.spring.ext.model.LogonHistory;
 import com.hjs.study.spring.service.ILoginService;
 
 /**
@@ -23,6 +25,8 @@ public class LoginController extends BaseController{
 
 	@Resource
 	private ILoginService loginService;
+	@Resource
+	private ILogonHistoryDao logonHistoryDao;
 	
 	/**
 	 * 登陆验证
@@ -35,7 +39,11 @@ public class LoginController extends BaseController{
 	@RequestMapping(value="logonsys")
 //	@ResponseBody
 	public String logonSys(HttpServletRequest request,ModelMap map,@ModelAttribute User user) throws Exception{
-		String sysKaptcha = request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY).toString();
+		Object kaptchaTmp = request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+		if(kaptchaTmp==null){
+			return "default";
+		}
+		String sysKaptcha = kaptchaTmp.toString();
 		if(!sysKaptcha.equalsIgnoreCase(user.getKaptcha())){
 			map.addAttribute("errordtl", "验证码错误!");
 			return "default";
@@ -53,4 +61,14 @@ public class LoginController extends BaseController{
 	/**
 	 * 跳转到系统页面
 	 */
+	
+	/**
+	 * 读取登录历史
+	 */
+	@RequestMapping(value="getlogonhistory")
+	public String getLogonHistory(ModelMap model){
+		List<LogonHistory> entityList = logonHistoryDao.selectLogonHistory(null);
+		model.addAttribute("entityList",entityList);
+		return "login/history";
+	}
 }

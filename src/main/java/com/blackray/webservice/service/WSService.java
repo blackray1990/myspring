@@ -1,7 +1,11 @@
 package com.blackray.webservice.service;
 
 import javax.xml.ws.Endpoint;
-
+/**
+ * 也可用spring的依赖注入 详见项目spring配置文件
+ * @author Administrator
+ *
+ */
 public class WSService {
     public static void main(String[] args) {
               System.out.println("web service start");

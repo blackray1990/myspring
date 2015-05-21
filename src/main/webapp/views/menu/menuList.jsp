@@ -14,7 +14,6 @@
 				$("#mfolder").val(node.isFolder);
 				$("#mparent").val(node.parent);
 				$("#mparenttext").val(node.parentText);
-				alert(node.urltent);
 				if(node.url){
 					$("#murl").val(node.url);
 				}else{
@@ -38,7 +37,6 @@
 				$("#mfolder").val(node.isFolder);
 				$("#mparent").val(node.parent);
 				$("#mparenttext").val(node.parentText);
-				alert(node.urltent);
 				if(node.url){
 					$("#murl").val(node.url);
 				}else{
@@ -87,7 +85,14 @@
 				    	}
 				    }
 			  }]    
-			}); 
+			});
+		
+		$("#aritcle_tpl").click(function(){
+			var tpl_url = "article/common.do";	//链接地址
+			var tpl_frame = "views/article/iframe.jsp";	//使用模版文件
+			$("#murl").val(tpl_url);
+			$("#mtemplate").val(tpl_frame);
+		});
 	});
 	
 	function submitForm(){
@@ -111,7 +116,11 @@
 </script>
 <style>
 	td {
-		width: 120px !important;
+		width: 80px;
+		text-align: left;
+	}
+	.input_td {
+		width: 200px;
 	}
 	.com-btn {
 		color: black;
@@ -139,16 +148,19 @@
     		<form id="menuform" onsubmit="return false;">
     			<table style="text-align: center;">
     				<tr>
-    					<td>名称</td><td><input type="text" id="mtitle" name="text" class="nowrite"></td>
-    					<td>是否目录</td><td><select id="mfolder" name="isFolder"  class="nowrite"><option value="0">否</option><option value="1">是</option></select></td>
+    					<td>名称</td><td class="input_td"><input type="text" id="mtitle" name="text" class="nowrite"></td>
+    					<td>是否目录</td><td class="input_td"><select id="mfolder" name="isFolder"  class="nowrite"><option value="0">否</option><option value="1">是</option></select></td>
     					
     				</tr>
     				<tr>
-    					<td>上级目录</td><td><input type="hidden" name="parent" id="mparent" class="nowrite"><input type="text" id="mparenttext" disabled="disabled"></td>
-    					<td>URL</td><td><input type="text" name="url" id="murl" class="nowrite"></td>
+    					<td>上级目录</td><td class="input_td"><input type="hidden" name="parent" id="mparent" class="nowrite"><input type="text" id="mparenttext" disabled="disabled"></td>
+    					<td>URL</td>
+    					<td class="input_td">
+    						<input type="text" name="url" id="murl" class="nowrite">&nbsp;&nbsp;<a id="aritcle_tpl" href="javascript:void(0)">文章</a>
+    					</td>
     				</tr>
     				<tr>
-    					<td>模板</td><td><input type="text" name="template" id="mtemplate" class="nowrite"><br/></td>
+    					<td>模板</td><td class="input_td"><input type="text" name="template" id="mtemplate" class="nowrite"><br/></td>
     					<td style="display:none;">id</td><td style="display:none;"><input type="text" name="id" id="mid" value="0"><input type="text" id="operation" name="operation"><br/></td>
     				</tr>
     				<tr height="100px">

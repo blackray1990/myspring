@@ -4,14 +4,28 @@
  	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  	xmlns:context="http://www.springframework.org/schema/context"
  	xmlns:aop="http://www.springframework.org/schema/aop"
+ 	xmlns:jaxws="http://cxf.apache.org/jaxws"
+ 	xmlns:cxf="http://cxf.apache.org/core"
  	xsi:schemaLocation="http://www.springframework.org/schema/beans 
                     http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
                     http://www.springframework.org/schema/context
                     http://www.springframework.org/schema/context/spring-context-2.5.xsd
                     http://www.springframework.org/schema/aop
                     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+                    http://cxf.apache.org/jaxws   
+    				http://cxf.apache.org/schemas/jaxws.xsd
                     ">
-                    
+    <!-- redis配置 -->
+    <import resource="classpath:conf/spring-redis.xml"/>
+    <!-- cxf配置 -->
+    <import resource="classpath:META-INF/cxf/cxf.xml" />  
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />  
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />  
+      
+    <bean id="hello" class="com.blackray.webservice.service.HelloWorldServiceImpl"/><!-- 实现类 -->
+    <!-- address就是访问的地址 /HelloWorld?wsdl -->
+    <jaxws:endpoint id="helloWorld" implementor="#hello" address="/HelloWorld" />      
+            
     <!-- 支持注解 -->
     <context:annotation-config />
      
@@ -33,14 +47,38 @@
 	        <value>root</value>  
 	    </property>  
 	</bean>  
+	<!-- 数据源2 -->
+	<bean id="extJdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >  
+	    <property name="driverClassName">  
+	        <value>org.gjt.mm.mysql.Driver</value>  
+	    </property>  
+	    <property name="url">  
+	        <value>jdbc:mysql://localhost:3306/bakreview?useUnicode=true&amp;characterEncoding=UTF-8</value>  
+	    </property>  
+	    <property name="username">  
+	        <value>root</value>  
+	    </property>  
+	    <property name="password">  
+	        <value>root</value>  
+	    </property>  
+	</bean>  
+	<bean id="multipleDataSource" class="com.hjs.study.spring.support.MultipleDataSource">
+        <property name="defaultTargetDataSource" ref="jdbcDataSource"/>
+        <property name="targetDataSources">
+            <map>
+                <entry key="jdbcDataSource" value-ref="jdbcDataSource"/>
+                <entry key="extJdbcDataSource" value-ref="extJdbcDataSource"/>
+            </map>
+        </property>
+    </bean>
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
-	    <property name="dataSource" ref="jdbcDataSource" />  
+	    <property name="dataSource" ref="multipleDataSource" />  
 	    <property name="configLocation" value="classpath:conf/mybatis-config.xml"></property> 
 	</bean>  
 	
 	 <!-- spring与mybatis整合配置，扫描所有dao --> 
 	 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-	 	<property name="basePackage" value="com.hjs.study.spring.dao"></property>
+	 	<property name="basePackage" value="com.hjs.study.spring.dao,com.hjs.study.spring.ext.dao"></property>
 	 </bean>
 
 	<!--AOP:
@@ -49,20 +87,27 @@
 		expression指定织入的规则、method指定切面方法
 		args(param) 括号中的参数是指参数的名称（id），注解方式实例化的bean其名称为类名的小写；如果是任意参数，则是 ..
 	 -->
-	<bean id="logAspect" class="com.hjs.study.spring.controller.LogAspect">
-	</bean>
+	<!-- 打开aop 注解 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/> 
+<!-- 	<bean id="logAspect" class="com.hjs.study.spring.aspect.LogAspect"></bean>
  	<aop:config proxy-target-class="false">	
 		<aop:aspect ref="logAspect">
 			<aop:pointcut expression="execution(* *.getU*(..))" id="pointcut-1"/>
+			<aop:pointcut expression="execution(* *.save*BasicArticle(..)) and args(article))" id="pointcut-2"/>
 			<aop:before method="signBeforeM" pointcut-ref="pointcut-1"/>
 			<aop:after method="signAfterM"  pointcut-ref="pointcut-1"/>
-		</aop:aspect>
-	</aop:config>
-	<!-- article是传入的参数 -->
-	<aop:config proxy-target-class="false">	
-		<aop:aspect ref="logAspect">
-			<aop:pointcut expression="execution(* *.save*BasicArticle(..)) and args(article))" id="pointcut-2"/>
 			<aop:before method="handleContent" pointcut-ref="pointcut-2"/>
 		</aop:aspect>
-	</aop:config>
+	</aop:config> -->
+	<!-- 数据源自动切换AOP -->
+<!-- 	<bean id="dschangeAspect" class="com.hjs.study.spring.aspect.DataSourceChooseAspect"></bean>
+	<aop:config proxy-target-class="false">	
+		<aop:aspect ref="dschangeAspect">article是传入的参数
+			<aop:pointcut expression="execution(* com.hjs.study.spring.dao.*.*(..))" id="changepointcut"/>
+			<aop:pointcut expression="execution(* com.hjs.study.spring.ext.dao.*.*(..))" id="changepointcut-ext"/>
+			<aop:around method="turnToDefaultDataSource" pointcut-ref="changepointcut"/>
+			<aop:around method="turnToExtDataSource" pointcut-ref="changepointcut-ext"/>
+		</aop:aspect>
+	</aop:config> -->
+	
 </beans>
