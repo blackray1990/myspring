@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hjs.study.spring.ext.dao.ILogonHistoryDao"><!-- 指定接口类路径 -->
+
+	<select id="selectLogonHistory" parameterType="com.hjs.study.spring.ext.model.LogonHistory" resultType="com.hjs.study.spring.ext.model.LogonHistory">
+		select t.* from logon_history t
+	</select>
+</mapper>
