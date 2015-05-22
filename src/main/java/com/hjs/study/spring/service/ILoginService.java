@@ -5,7 +5,7 @@ import com.hjs.study.spring.bean.User;
 public interface ILoginService {
 	
 	/**
-	 * ²éÑ¯ÓÃ»§
+	 * æŸ¥è¯¢ç”¨æˆ·
 	 */
 	public User getUser(User user);
 	

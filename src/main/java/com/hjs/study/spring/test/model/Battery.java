@@ -1,6 +1,5 @@
-package com.hjs.study.spring.bean;
+package com.hjs.study.spring.test.model;
 
-import com.hjs.study.spring.bean.parent.Product;
 
 public class Battery extends Product{
 

@@ -1,7 +1,7 @@
-package com.hjs.study.spring.bean;
+package com.hjs.study.spring.test.model;
 
 /**
- * ÓÃÓÚspring-data-redis²âÊÔ
+ * ç”¨äºæµ‹è¯•spring-data-redis å®ä½“ç±»
  * @author Administrator
  *
  */

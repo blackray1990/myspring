@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/hjs/study/spring/controller/CommonRedisController.java=UTF-8
+encoding//src/main/java/com/hjs/study/spring/controller/LoginController.java=UTF-8
+encoding//src/main/java/com/hjs/study/spring/test/model/Conversation.java=GBK
+encoding//src/main/java/com/hjs/study/spring/test/model/HelloWorld.java=GBK
+encoding//src/main/java/com/hjs/study/spring/test/model/Product.java=GBK
+encoding//src/main/resources/conf/redis-manager-config.properties=UTF-8

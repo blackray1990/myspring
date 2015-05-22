@@ -29,8 +29,10 @@
     <!-- 支持注解 -->
     <context:annotation-config />
      
-    <!-- 扫描文件（自动将servicec层注入）
-	<context:component-scan base-package="com.hjs.study.spring.service"/> -->
+     <!-- 打开aop 注解 -->
+    <aop:aspectj-autoproxy/> 
+    <!-- 扫描切面并注入 使用注解方式配置切面 -->
+	<context:component-scan base-package="com.hjs.study.spring.aspect"/>
        
 	<!-- 配置数据源 -->
     <bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >  
@@ -76,19 +78,18 @@
 	    <property name="configLocation" value="classpath:conf/mybatis-config.xml"></property> 
 	</bean>  
 	
-	 <!-- spring与mybatis整合配置，扫描所有dao --> 
+	 <!-- spring与mybatis整合配置，扫描所有带注解的类的(dao)包 --> 
 	 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 	 	<property name="basePackage" value="com.hjs.study.spring.dao,com.hjs.study.spring.ext.dao"></property>
 	 </bean>
 
+	<!-- 以下为使用配置方式配置AOP 本项目使用注解方式 -->
 	<!--AOP:
-		proxy-target-class值为false时使用JAVA动态代理
-		值为true时，使用cglib代理，但是cglib动态代理不支持面向切口编程，因此使用java动态代理
+		proxy-target-class值为false时使用JAVA动态代理，值为true时，使用cglib代理，但是cglib动态代理不支持面向切口编程，因此使用java动态代理
 		expression指定织入的规则、method指定切面方法
 		args(param) 括号中的参数是指参数的名称（id），注解方式实例化的bean其名称为类名的小写；如果是任意参数，则是 ..
 	 -->
-	<!-- 打开aop 注解 -->
-    <aop:aspectj-autoproxy proxy-target-class="true"/> 
+	
 <!-- 	<bean id="logAspect" class="com.hjs.study.spring.aspect.LogAspect"></bean>
  	<aop:config proxy-target-class="false">	
 		<aop:aspect ref="logAspect">
@@ -100,7 +101,7 @@
 		</aop:aspect>
 	</aop:config> -->
 	<!-- 数据源自动切换AOP -->
-<!-- 	<bean id="dschangeAspect" class="com.hjs.study.spring.aspect.DataSourceChooseAspect"></bean>
+ 	<!-- <bean id="dschangeAspect" class="com.hjs.study.spring.aspect.DataSourceChooseAspect"></bean>
 	<aop:config proxy-target-class="false">	
 		<aop:aspect ref="dschangeAspect">article是传入的参数
 			<aop:pointcut expression="execution(* com.hjs.study.spring.dao.*.*(..))" id="changepointcut"/>

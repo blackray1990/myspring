@@ -1,8 +1,6 @@
-package com.hjs.study.spring.bean.factory;
+package com.hjs.study.spring.test.model;
 
 import org.springframework.beans.factory.config.AbstractFactoryBean;
-
-import com.hjs.study.spring.bean.parent.Product;
 
 public class DiscountFactoryBean extends AbstractFactoryBean{
 
@@ -21,7 +19,7 @@ public class DiscountFactoryBean extends AbstractFactoryBean{
 	@Override
 	protected Object createInstance() throws Exception {
 		product.setPrice(product.getPrice()*(1-discount));
-		product.setDesc("¡¾Í¨¹ý¹¤³§bean·½Ê½´¦Àíºó»ñµÃ¡¿");
+		product.setDesc("ï¿½ï¿½Í¨ï¿½ï¿½beanï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¡ï¿½");
 		return product;
 	}
 

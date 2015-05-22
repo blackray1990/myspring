@@ -20,7 +20,7 @@ public interface IArticleDao {
 	public void saveEditBasicArticle(Article article);
 	
 	/**
-	 * ²éÑ¯ÁÐ±í
+	 * æŸ¥è¯¢åˆ—è¡¨
 	 * @param article
 	 * @return
 	 */

@@ -50,7 +50,10 @@
 		<servlet-name>review</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
-	
+	<!-- session过期时间45分钟 -->
+	<session-config>
+		<session-timeout>45</session-timeout>
+	</session-config>
 	<welcome-file-list>
 		<welcome-file>views/default.jsp</welcome-file>
 	</welcome-file-list>

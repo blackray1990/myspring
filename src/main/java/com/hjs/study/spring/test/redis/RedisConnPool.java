@@ -1,4 +1,4 @@
-package com.hjs.study.spring.redis;
+package com.hjs.study.spring.test.redis;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,18 +11,23 @@ import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
+/**
+ * jredisç”¨æ³•
+ * @author Administrator
+ *
+ */
 public class RedisConnPool {
 	
 	private static JedisPool pool=null;
 	private static ResourceBundle bundle;
 	private static JedisPoolConfig config;
 	
-	//¾²Ì¬´úÂë¿éÖĞ³õÊ¼»¯´úÂë
+	//é™æ€ä»£ç å—ä¸­åˆå§‹åŒ–ä»£ç 
 	static {
 		bundle = ResourceBundle.getBundle("redis");
 		if (bundle == null) {
 			throw new IllegalArgumentException(
-					"[redis.properties] Ã»ÓĞÕÒµ½ÎÄ¼ş!");
+					"[redis.properties] æ²¡æœ‰æ‰¾åˆ°æ–‡ä»¶!");
 		}
 		config = new JedisPoolConfig();
 		config.setMaxTotal(Integer.valueOf(bundle.getString("redis.pool.maxTotal")));
@@ -37,35 +42,35 @@ public class RedisConnPool {
 	
 	//
 	public static void testRedis(){
-		// ´Ó³ØÖĞ»ñÈ¡Ò»¸öJedis¶ÔÏó
+		// ä»æ± ä¸­è·å–ä¸€ä¸ªJediså¯¹è±¡
 				Jedis jedis = null;
 				try{
 					jedis = pool.getResource();
 				}catch(Exception e){
-					pool.returnBrokenResource(jedis);	//ÊÍ·Åredis¶ÔÏó
+					pool.returnBrokenResource(jedis);	//é‡Šæ”¾rediså¯¹è±¡
 					e.printStackTrace();
 				}
 				
 				String keys = "name";
 
-				// É¾Êı¾İ
+				// åˆ æ•°æ®
 //				jedis.del(keys);
-				// ´æÊı¾İ
+				// å­˜æ•°æ®
 //				jedis.set(keys, "BlackRay");
-				// È¡Êı¾İ
+				// å–æ•°æ®
 				String value = jedis.get(keys);
 
 				System.out.println("name: "+value);
 				System.out.println("lover: "+jedis.get("lover"));
 
-				// ÊÍ·Å¶ÔÏó³Ø
+				// é‡Šæ”¾å¯¹è±¡æ± 
 				pool.returnResource(jedis);
 	}
 	
 	
 	public static void main(String[] args) {
 		
-		//·şÎñÆ÷ĞÅÏ¢
+		//æœåŠ¡å™¨ä¿¡æ¯
 		JedisShardInfo jedisShardInfo1 = new JedisShardInfo(bundle.getString("redis-s.ip"), Integer.valueOf(bundle.getString("redis-s.port")));
 		JedisShardInfo jedisShardInfo2 = new JedisShardInfo(bundle.getString("redis-m.ip"), Integer.valueOf(bundle.getString("redis-m.port")));
 		
@@ -77,18 +82,18 @@ public class RedisConnPool {
 		
 		ShardedJedisPool npool = new ShardedJedisPool(config, list);  
 		
-		// ´Ó³ØÖĞ»ñÈ¡Ò»¸öJedis¶ÔÏó
+		// ä»æ± ä¸­è·å–ä¸€ä¸ªJediså¯¹è±¡
 		ShardedJedis jedis = npool.getResource();
 		String keys = "name";
 		String value = "blackray";
 
 //		jedis.set(keys, value);
-//		jedis.set("home", "ÑÅÑôÕò¸£´¬´å25ºÅ");
+//		jedis.set("home", "é›…é˜³é•‡ç¦èˆ¹æ‘25å·");
 		String v = jedis.get(keys);
 
 		System.out.println(v+"	"+jedis.get("home")+"	"+jedis.get("age"));
 
-		// ÊÍ·Å¶ÔÏó³Ø
+		// é‡Šæ”¾å¯¹è±¡æ± 
 		npool.returnResource(jedis);
 		
 		System.exit(0);

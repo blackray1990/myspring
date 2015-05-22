@@ -10,7 +10,7 @@ import com.hjs.study.spring.bean.User;
 public interface IUserDao {
 
 	/**
-	 * µÇÂ½²éÑ¯
+	 * ç™»é™†æŸ¥è¯¢
 	 * @param username
 	 * @param password
 	 * @return
@@ -18,20 +18,20 @@ public interface IUserDao {
 	public User getUserForLogin(User user);
 	
 	/**
-	 * ËùÓĞÓÃ»§
+	 * æ‰€æœ‰ç”¨æˆ·
 	 */
 	public List<User> getAllUsers();
 	
 	/**
-	 * ĞŞ¸Ä
+	 * ä¿®æ”¹
 	 */
 	public void updateUser(User user);
 	/**
-	 * ĞÂÔö
+	 * æ–°å¢
 	 */
 	public void insertUser(User user);
 	/**
-	 * ÒÆ³ı
+	 * ç§»é™¤
 	 */
 	public void deleteUser(User user);
 }

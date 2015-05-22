@@ -1,4 +1,4 @@
-package com.hjs.study.spring.redis;
+package com.hjs.study.spring.test.redis;
 
 import org.springframework.data.redis.core.StringRedisTemplate;
 

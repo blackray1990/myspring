@@ -1,5 +1,10 @@
 package com.hjs.study.spring.ext.model;
 
+/**
+ * 登录日志实体类
+ * @author Administrator
+ *
+ */
 public class LogonHistory {
 
 	private Integer id;

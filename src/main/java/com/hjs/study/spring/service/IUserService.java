@@ -9,23 +9,23 @@ import com.hjs.study.spring.bean.User;
 public interface IUserService {
 
 	/**
-	 * 查询用户
+	 * 鏌ヨ鐢ㄦ埛
 	 */
 	public List<User> getAllUsers();
 	/**
-	 * 新增用户
+	 * 鏂板鐢ㄦ埛
 	 * @return
 	 */
 	public void createUser(User User);
 	
 	/**
-	 * 修改用户
+	 * 淇敼鐢ㄦ埛
 	 * @return
 	 */
 	public void editUser(User User);
 	
 	/**
-	 * 删除用户
+	 * 鍒犻櫎鐢ㄦ埛
 	 */
 	public void removeUser(User User);
 }

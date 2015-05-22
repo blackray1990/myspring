@@ -1,21 +1,30 @@
 package com.hjs.study.spring.aspect;
 
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.springframework.stereotype.Component;
 import com.hjs.study.spring.bean.Article;
 
+@Component
+@Aspect
 public class LogAspect {
 
+	@Before("execution(* *.getU*(..))")
 	public void signBeforeM(){
-		System.out.println("在方法前");
+		System.out.println("鍦ㄦ柟娉曞墠");
 	}
+	@After("execution(* *.getU*(..))")
 	public void signAfterM(){
-		System.out.println("在方法后");
+		System.out.println("鍦ㄦ柟娉曞悗");
 	}
 	
 	/**
-	 * 拦截新建或修改内容时
-	 * 处理特殊字符、标签等
+	 * 鎷︽埅鏂板缓鎴栦慨鏀瑰唴瀹规椂
+	 * 澶勭悊鐗规畩瀛楃銆佹爣绛剧瓑
 	 * @param article
 	 */
+	@Before("execution(* *.save*BasicArticle(..))&&args(article))")
 	public void handleContent(Article article){
 		String temp = article.getContent();
 		if(temp!=null){

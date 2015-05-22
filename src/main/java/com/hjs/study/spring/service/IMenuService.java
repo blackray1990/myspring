@@ -7,23 +7,23 @@ import com.hjs.study.spring.bean.Menu;
 public interface IMenuService {
 
 	/**
-	 * 查询菜单
+	 * 鏌ヨ鑿滃崟
 	 */
 	public String getAllMenus();
 	/**
-	 * 新增菜单
+	 * 鏂板鑿滃崟
 	 * @return
 	 */
 	public void createMenu(Menu menu);
 	
 	/**
-	 * 修改菜单
+	 * 淇敼鑿滃崟
 	 * @return
 	 */
 	public void editMenu(Menu menu);
 	
 	/**
-	 * 删除菜单
+	 * 鍒犻櫎鑿滃崟
 	 */
 	public void removeMenu(Menu menu);
 }

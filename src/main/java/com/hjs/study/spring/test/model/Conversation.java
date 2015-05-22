@@ -1,4 +1,4 @@
-package com.hjs.study.spring.bean;
+package com.hjs.study.spring.test.model;
 
 public class Conversation {
 

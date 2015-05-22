@@ -10,21 +10,21 @@ import com.hjs.study.spring.bean.Menu;
 public interface IMenuDao {
 
 	/**
-	 * ²éÑ¯Ò»¼¶Ä¿Â¼
+	 * æŸ¥è¯¢ä¸€çº§ç›®å½•
 	 */
 	public List<Menu> queryMainMenus();
 	
 	/**
-	 * ĞÂÔö
+	 * æ–°å¢
 	 */
 	public void createMenu(Menu menu);
 	
 	/**
-	 * ĞŞ¸Ä
+	 * ä¿®æ”¹
 	 */
 	public void editMenu(Menu menu);
 	/**
-	 * É¾³ı
+	 * åˆ é™¤
 	 */
 	public void deleteMenu(Menu menu);
 }

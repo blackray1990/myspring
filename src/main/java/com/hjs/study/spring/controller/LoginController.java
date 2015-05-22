@@ -16,7 +16,7 @@ import com.hjs.study.spring.ext.model.LogonHistory;
 import com.hjs.study.spring.service.ILoginService;
 
 /**
- * µÇÂ½¿ØÖÆÆ÷
+ * ç™»é™†æ§åˆ¶å™¨
  * @author Administrator
  *
  */
@@ -29,7 +29,7 @@ public class LoginController extends BaseController{
 	private ILogonHistoryDao logonHistoryDao;
 	
 	/**
-	 * µÇÂ½ÑéÖ¤
+	 * ç™»é™†éªŒè¯
 	 * @param request
 	 * @param map
 	 * @param user
@@ -45,7 +45,7 @@ public class LoginController extends BaseController{
 		}
 		String sysKaptcha = kaptchaTmp.toString();
 		if(!sysKaptcha.equalsIgnoreCase(user.getKaptcha())){
-			map.addAttribute("errordtl", "ÑéÖ¤Âë´íÎó!");
+			map.addAttribute("errordtl", "éªŒè¯ç é”™è¯¯!");
 			return "default";
 		}
 		User user1 = loginService.getUser(user);
@@ -59,11 +59,11 @@ public class LoginController extends BaseController{
 	}
 	
 	/**
-	 * Ìø×ªµ½ÏµÍ³Ò³Ãæ
+	 * è·³è½¬åˆ°ç³»ç»Ÿé¡µé¢
 	 */
 	
 	/**
-	 * ¶ÁÈ¡µÇÂ¼ÀúÊ·
+	 * è¯»å–ç™»å½•å†å²
 	 */
 	@RequestMapping(value="getlogonhistory")
 	public String getLogonHistory(ModelMap model){

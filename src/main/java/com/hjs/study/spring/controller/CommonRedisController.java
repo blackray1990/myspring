@@ -3,6 +3,7 @@ package com.hjs.study.spring.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,14 +14,18 @@ import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hjs.study.spring.bean.PersonDO;
+import com.hjs.study.spring.test.model.PersonDO;
 
 import redis.clients.jedis.JedisPoolConfig;
+/**
+ * spring-data-redisç”¨æ³•
+ * @author Administrator
+ *
+ */
 
 @Controller
 @RequestMapping("redis")
@@ -30,7 +35,7 @@ public class CommonRedisController {
 	private StringRedisTemplate template;
 	
 	/**
-	 * redisĞ´Èë
+	 * å†™å…¥redisç¼“å­˜
 	 * @param request
 	 * @return
 	 */
@@ -43,9 +48,9 @@ public class CommonRedisController {
 				persondo.setName("HEJINSHENG");
 				persondo.setPhone("13634127281");
 				persondo.setSex(1);
-				persondo.setDesc("¹ÜÀíÔ±");
+				persondo.setDesc("æµ‹è¯•å†™å…¥");
 			}
-	        // save as hash Ò»°ãkey¶¼Òª¼ÓÒ»¸öÇ°×º£¬·½±ãÇå³ıËùÓĞµÄÕâÀàkey
+	        // save as hash 
 	        BoundHashOperations<String, String, String> ops = template.boundHashOps("person-"+persondo.getId());
 	        Map<String, String> data = new HashMap<String,String>();
 	        data.put("id", persondo.getId().toString());
@@ -63,7 +68,7 @@ public class CommonRedisController {
 	}
 	
 	/**
-	 * ´ÓredisÖĞ¶ÁÈ¡
+	 * ä»redisç¼“å­˜ä¸­è¯»å–
 	 */
 	@RequestMapping("readperson")
 	public String readPerson(HttpServletRequest request,Model model,Integer id){
@@ -95,12 +100,14 @@ public class CommonRedisController {
 		return null;
 	}
 	/**
-	 * Çå³ıredis»º´æ
+	 * æ¸…é™¤redisç¼“å­˜
 	 */
 	@ResponseBody
 	@RequestMapping("cleancache")
-	public void cleanCache(HttpServletRequest request){
-		System.out.println("come here");
-		//TODO
+	public void cleanCache(HttpServletRequest request,String pattern){ 
+       Set<String> keys = template.keys(pattern);  
+       if (!keys.isEmpty()) {  
+           template.delete(keys);  
+       }
 	}
 }
