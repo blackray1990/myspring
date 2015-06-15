@@ -9,7 +9,7 @@ public interface ILogonHistoryDao {
 	/**
 	 * 查询登录历史
 	 * @param contition
-	 * @return
+	 * @return 
 	 */
 	public List<LogonHistory> selectLogonHistory(LogonHistory contition);
 }

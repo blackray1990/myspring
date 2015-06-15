@@ -74,7 +74,7 @@ public class CommonRedisController {
 	public String readPerson(HttpServletRequest request,Model model,Integer id){
 		final String strkey = "person-"+ id;
 	    PersonDO entity = template.execute(new RedisCallback<PersonDO>() {
-	           @Override  
+//	           @Override  
 	           public PersonDO doInRedis(RedisConnection connection) throws DataAccessException {
 	               byte[] bkey = template.getStringSerializer().serialize(strkey);  
 	               if (connection.exists(bkey)) {

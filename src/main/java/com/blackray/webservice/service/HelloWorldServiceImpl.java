@@ -17,7 +17,7 @@ public class HelloWorldServiceImpl implements HelloWorldService {
 	@Override
 	public String sayHiToUser(Person person) {
 		
-		return "Hello, "+person.getName()+"¡¾"+person.getDescription()+"¡¿";
+		return "Hello, "+person.getName()+"ï¿½ï¿½"+person.getDescription()+"ï¿½ï¿½";
 	}
 
 	@Override

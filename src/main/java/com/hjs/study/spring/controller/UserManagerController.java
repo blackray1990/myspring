@@ -17,7 +17,7 @@ import com.hjs.study.spring.service.IMenuService;
 import com.hjs.study.spring.service.IUserService;
 
 /**
- * ²Ëµ¥¿ØÖÆÆ÷
+ * èœå•æ§åˆ¶å™¨
  * @author Administrator
  *
  */
@@ -28,10 +28,10 @@ public class UserManagerController extends BaseController{
 	@Resource
 	private IUserService userService;
 	
-	private final static String initPass = "123456";	//³õÊ¼»¯ÃÜÂë
+	private final static String initPass = "123456";	//åˆå§‹åŒ–å¯†ç 
 	
 	/**
-	 * ¼ÓÔØ²Ëµ¥
+	 * åŠ è½½èœå•
 	 * @param request
 	 * @param response
 	 * @return
@@ -45,14 +45,14 @@ public class UserManagerController extends BaseController{
 	}
 	
 	/**
-	 * ³õÊ¼»¯ÃÜÂë
+	 * åˆå§‹åŒ–å¯†ç 
 	 */
 	@RequestMapping("initordelete")
 	@ResponseBody
 	public String initOrDeleteUser(HttpServletRequest request,User user){
 		String option = request.getParameter("option");
 		if("init".equals(option)){
-			user.setPassword(initPass);		//Ìõ¼ş¼°ĞŞ¸ÄºóµÄÖµ
+			user.setPassword(initPass);		//æ¡ä»¶åŠä¿®æ”¹åçš„å€¼
 			userService.editUser(user);
 		}
 		if("delete".equals(option)){
@@ -62,7 +62,7 @@ public class UserManagerController extends BaseController{
 	}
 	
 	/**
-	 * ĞÂÔö»òĞŞ¸Ä
+	 * æ–°å¢æˆ–ä¿®æ”¹
 	 */
 	@RequestMapping("operation")
 	@ResponseBody

@@ -12,7 +12,7 @@ import com.hjs.study.spring.bean.Menu;
 import com.hjs.study.spring.service.IMenuService;
 
 /**
- * ²Ëµ¥¿ØÖÆÆ÷
+ * èœå•æ§åˆ¶å™¨
  * @author Administrator
  *
  */
@@ -24,7 +24,7 @@ public class MenusLoadController extends BaseController{
 	private IMenuService menuService;
 	
 	/**
-	 * ¼ÓÔØ²Ëµ¥
+	 * åŠ è½½èœå•
 	 * @param request
 	 * @param response
 	 * @return
@@ -35,12 +35,12 @@ public class MenusLoadController extends BaseController{
 //		response.setContentType("text/html;charset=UTF-8");
 		String content = menuService.getAllMenus();
 		System.out.println(content);
-//		content = "[{\"children\":[{\"children\":[],\"id\":12,\"isFolder\":0,\"parent\":15,\"parentText\":\"ÓÑÇéÁ´½Ó\",\"template\":\"article/iframe.jsp\",\"text\":\"°Ù¶È\",\"url\":\"http://www.baidu.com\"}],\"id\":15,\"isFolder\":1,\"location\":0,\"parent\":0,\"parentText\":\"\",\"state\":\"closed\",\"template\":\"\",\"text\":\"ÓÑÇéÁ´½Ó\",\"url\":\"\"}]";
+//		content = "[{\"children\":[{\"children\":[],\"id\":12,\"isFolder\":0,\"parent\":15,\"parentText\":\"å‹æƒ…é“¾æ¥\",\"template\":\"article/iframe.jsp\",\"text\":\"ç™¾åº¦\",\"url\":\"http://www.baidu.com\"}],\"id\":15,\"isFolder\":1,\"location\":0,\"parent\":0,\"parentText\":\"\",\"state\":\"closed\",\"template\":\"\",\"text\":\"å‹æƒ…é“¾æ¥\",\"url\":\"\"}]";
 		return content;
 	}
 	
 	/**
-	 * Ìø×ªÖÁ²Ëµ¥Ò³Ãæ
+	 * è·³è½¬è‡³èœå•é¡µé¢
 	 * @param request
 	 * @param response
 	 * @return
@@ -52,7 +52,7 @@ public class MenusLoadController extends BaseController{
 	}
 	
 	/**
-	 * ĞÂÔö»ò±à¼­²Ëµ¥
+	 * æ–°å¢æˆ–ç¼–è¾‘èœå•
 	 */
 	@RequestMapping("operation")
 	@ResponseBody()

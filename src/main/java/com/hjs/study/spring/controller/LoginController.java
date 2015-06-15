@@ -39,17 +39,20 @@ public class LoginController extends BaseController{
 	@RequestMapping(value="logonsys")
 //	@ResponseBody
 	public String logonSys(HttpServletRequest request,ModelMap map,@ModelAttribute User user) throws Exception{
+		System.out.println("打印测试");
 		Object kaptchaTmp = request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
 		if(kaptchaTmp==null){
 			return "default";
 		}
 		String sysKaptcha = kaptchaTmp.toString();
 		if(!sysKaptcha.equalsIgnoreCase(user.getKaptcha())){
+			System.out.println("验证码错误");
 			map.addAttribute("errordtl", "验证码错误!");
 			return "default";
 		}
 		User user1 = loginService.getUser(user);
 		if(user1==null){
+			System.out.println("信息检验错误！");
 			map.put("msg", FAIlURE);
 			return "default";
 		}
@@ -57,15 +60,12 @@ public class LoginController extends BaseController{
 		request.getSession().setAttribute("contextPaths", request.getContextPath());
 		return "login/logon";
 	}
-	
-	/**
-	 * 跳转到系统页面
-	 */
+
 	
 	/**
 	 * 读取登录历史
 	 */
-	@RequestMapping(value="getlogonhistory")
+	@RequestMapping(value="gethistory")
 	public String getLogonHistory(ModelMap model){
 		List<LogonHistory> entityList = logonHistoryDao.selectLogonHistory(null);
 		model.addAttribute("entityList",entityList);
