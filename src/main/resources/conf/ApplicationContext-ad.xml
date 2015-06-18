@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 此配置文件用于演示声明式事务用法 -->
+
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+ 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ 	xmlns:context="http://www.springframework.org/schema/context"
+ 	xmlns:aop="http://www.springframework.org/schema/aop"
+ 	xmlns:jaxws="http://cxf.apache.org/jaxws"
+ 	xmlns:cxf="http://cxf.apache.org/core"
+ 	xmlns:tx="http://www.springframework.org/schema/tx"
+ 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                    http://www.springframework.org/schema/context
+                    http://www.springframework.org/schema/context/spring-context-2.5.xsd
+                    http://www.springframework.org/schema/tx
+                    http://www.springframework.org/schema/tx/spring-tx.xsd 
+                    http://www.springframework.org/schema/aop
+                    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+                    http://cxf.apache.org/jaxws   
+    				http://cxf.apache.org/schemas/jaxws.xsd
+                    ">  
+       
+     <!-- 支持注解 -->
+    <context:annotation-config />
+    
+	<!-- 配置数据源 -->
+    <bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >  
+	    <property name="driverClassName">  
+	        <value>org.gjt.mm.mysql.Driver</value>  
+	    </property>  
+	    <property name="url">  
+	        <value>jdbc:mysql://localhost:3306/review?useUnicode=true&amp;characterEncoding=UTF-8</value>  
+	    </property>  
+	    <property name="username">  
+	        <value>root</value>  
+	    </property>  
+	    <property name="password">  
+	        <value>root</value>  
+	    </property>  
+	</bean>   
+	
+	<bean id="jdbcTemplate"  
+        class="org.springframework.jdbc.core.JdbcTemplate" abstract="false"  
+        lazy-init="false" autowire="default" dependency-check="default">  
+        <property name="dataSource">  
+            <ref bean="jdbcDataSource" />  
+        </property>  
+    </bean>  
+    
+	<!-- 声明式事务管理 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+		<property name="dataSource" ref="jdbcDataSource">          
+		</property>
+    </bean>
+
+	<bean id="JTransaction" class="com.hjs.study.spring.test.TransactionTest" >
+		<property name="template" ref="jdbcTemplate"></property>
+	</bean>
+
+	<!-- 配置方式配置的事务 -->
+ 	 <tx:advice id="txAdvice" transaction-manager="transactionManager" >
+        <tx:attributes>
+            <tx:method name="get*" read-only="true" /><!-- 以get开头的方法中的Connection是readonly的 -->
+            <tx:method name="insert*" rollback-for="Throwable"/><!-- 在update开头的方法中遇到异常（Throwable）就回滚 -->
+            <tx:method name="*" />
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+    	<!-- 匹配这个类下面的所有方法 -->
+        <aop:pointcut expression="execution(* com.hjs.study.spring.test.*.*(..))" id="serviceJ" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceJ" />
+    </aop:config>
+    
+    <!-- 注解方式配置的事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>
