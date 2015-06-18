@@ -4,24 +4,26 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import org.junit.Test;
-
-import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
 /**
- * jredis用法
- * @author Administrator
- *
+ * 1、redis 3以下不支持分布式集群，但可以通过主从配置实现
+ * 	读写分离：数据写入主服务器：192.168.11.35:6379,reids自动复制到子服务器：192.168.11.35:6381(配置文件中需要配置slaveof)
+ * 
+ * 2、使用ShardedJedisPool对数据进行切片存储，根据key保存到不同的实例中
  */
 public class RedisConnPool {
 	
-	private static JedisPool pool=null;
+	private static Jedis jedisA = null;
+	private static Jedis jedisB = null;
+	private static Jedis jedisC = null;
 	private static ResourceBundle bundle;
 	private static JedisPoolConfig config;
+	private static ShardedJedisPool npool = null; 
 	
 	//静态代码块中初始化代码
 	static {
@@ -37,87 +39,49 @@ public class RedisConnPool {
 		config.setTestOnBorrow(Boolean.valueOf(bundle.getString("redis.pool.testOnBorrow")));
 		config.setTestOnReturn(Boolean.valueOf(bundle.getString("redis.pool.testOnReturn")));
 
-	}
-	
-	//
-/*	public static void testRedis(){
-		pool = new JedisPool(config, bundle.getString("redis-s.ip"),
-				Integer.valueOf(bundle.getString("redis-s.port")));
-		// 从池中获取一个Jedis对象
-				Jedis jedis = null;
-				try{
-					jedis = pool.getResource();
-				}catch(Exception e){
-					pool.returnBrokenResource(jedis);	//释放redis对象
-					e.printStackTrace();
-				}
-				
-				String keys = "name";
-
-				// 删数据
-//				jedis.del(keys);
-				// 存数据
-//				jedis.set(keys, "BlackRay");
-				// 取数据
-				String value = jedis.get(keys);
-
-				System.out.println("name: "+value);
-				System.out.println("lover: "+jedis.get("lover"));
-
-				// 释放对象池
-				pool.returnResource(jedis);
-	}*/
-	
-	
-	public static void main(String[] args) {
-		
 		//服务器信息
-		JedisShardInfo jedisShardInfo1 = new JedisShardInfo(bundle.getString("redis-s.ip"), Integer.valueOf(bundle.getString("redis-s.port")));
-		JedisShardInfo jedisShardInfo2 = new JedisShardInfo(bundle.getString("redis-m.ip"), Integer.valueOf(bundle.getString("redis-m.port")));
-		jedisShardInfo2.setPassword("foobared");	//如果有密码需要设置密码，否则报ERR operation not permitted
+		String hostA = bundle.getString("redis-m.ip");
+		Integer portA = Integer.valueOf(bundle.getString("redis-m.port"));
+		String hostB = bundle.getString("redis-s.ip");
+		Integer portB = Integer.valueOf(bundle.getString("redis-s.port"));
+		String hostC = bundle.getString("redis-c.ip");
+		Integer portC = Integer.valueOf(bundle.getString("redis-c.port"));
 		
+		JedisShardInfo jedisShardInfoA = new JedisShardInfo(hostA,portA,"masterA");
+		JedisShardInfo jedisShardInfoC = new JedisShardInfo("192.168.11.35",6382,"masterC");
+				
 		List<JedisShardInfo> list = new LinkedList<JedisShardInfo>();
-		list.add(jedisShardInfo1);
-		list.add(jedisShardInfo2);
+		list.add(jedisShardInfoA);
+		list.add(jedisShardInfoC);
+		npool = new ShardedJedisPool(config, list);  
 		
-		
-		ShardedJedisPool npool = new ShardedJedisPool(config, list);  
-		
-		// 从池中获取一个Jedis对象
-		ShardedJedis jedis = npool.getResource();
-		String keys = "name";
-		String value = "blackray";
+		//
+		jedisA = new Jedis(hostA,portA);
+		jedisB = new Jedis(hostB,portB);	//A的子服务器
+		jedisC = new Jedis(hostC,portC);	//另外一个切片实例
+	}
 
-		jedis.set(keys, value);
-		jedis.set("home", "雅阳镇福船村25号--");
-		jedis.set("age", "25--");
+	public static void main(String[] args) {
+		// 从池中获取一个Jedis对象
+		// 散列分布
+		// 
+		ShardedJedis jedis = npool.getResource();
+		jedisA.flushDB();
+		jedisB.flushDB();
+		jedisC.flushDB();
 		
-//		System.out.println(jedis.get("name")+"	"+jedis.get("home")+"	"+jedis.get("age"));
+		jedis.set("name", "zhangsan-new");
+		jedis.set("home", "hangzhou-new");
+		jedis.set("age","16-new");
+		
+		/**
+		 * ShardedJedis set内容时，根据传入的key做一致性哈希算法，将值散列的存放到ShardedJedisPool配置的服务器上。
+		 * ShardedJedis get内容时，将综合ShardedJedisPool配置的服务器，将值互补并取出
+		 */
+		System.out.println("slaveofA:	"+jedisB.get("name")+"	"+jedisB.get("home")+"	"+jedisB.get("age"));	//读写分离：从子服务器中读取数据
+		System.out.println("分片的另一个实例:	"+jedisC.get("name")+"	"+jedisC.get("home")+"	"+jedisC.get("age"));
+		System.out.println("SharedJedis："+jedis.get("name")+"	"+jedis.get("home")+"	"+jedis.get("age"));
 		// 释放对象池
 		npool.returnResource(jedis);
-		
-		System.exit(0);
-		
-	}
-	
-	@Test
-	public void showValue(){
-		//服务器信息
-				JedisShardInfo jedisShardInfo1 = new JedisShardInfo(bundle.getString("redis-s.ip"), Integer.valueOf(bundle.getString("redis-s.port")));
-				JedisShardInfo jedisShardInfo2 = new JedisShardInfo(bundle.getString("redis-m.ip"), Integer.valueOf(bundle.getString("redis-m.port")));
-				jedisShardInfo2.setPassword("foobared");	//如果有密码需要设置密码，否则报ERR operation not permitted
-				
-				List<JedisShardInfo> list = new LinkedList<JedisShardInfo>();
-				
-				list.add(jedisShardInfo1);
-				list.add(jedisShardInfo2);
-				
-				
-				ShardedJedisPool npool = new ShardedJedisPool(config, list);  
-				
-				// 从池中获取一个Jedis对象
-				ShardedJedis jedis = npool.getResource();
-				
-				System.out.println(jedis.get("name")+"	"+jedis.get("home")+"	"+jedis.get("age"));
 	}
 }
