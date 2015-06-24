@@ -17,26 +17,15 @@
                     http://cxf.apache.org/jaxws   
     				http://cxf.apache.org/schemas/jaxws.xsd
                     ">
-    <!-- redis配置 -->
-    <import resource="classpath:conf/spring-redis.xml"/>
-    <!-- cxf配置 -->
-    <import resource="classpath:META-INF/cxf/cxf.xml" />  
-    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />  
-    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />  
-      
-    <bean id="hello" class="com.blackray.webservice.service.HelloWorldServiceImpl"/><!-- 实现类 -->
-    <!-- address就是访问的地址 /HelloWorld?wsdl -->
-    <jaxws:endpoint id="helloWorld" implementor="#hello" address="/HelloWorld" />      
-            
+    
     <!-- 支持注解 -->
     <context:annotation-config />
-     
-     <!-- 打开aop 注解 -->
+    <!-- 打开aop 支持注解 -->
     <aop:aspectj-autoproxy/> 
     <!-- 扫描切面并注入 使用注解方式配置切面 -->
 	<context:component-scan base-package="com.hjs.study.spring.aspect"/>
        
-	<!-- 配置数据源 -->
+	<!-- 数据源1 -->
     <bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >  
 	    <property name="driverClassName">  
 	        <value>org.gjt.mm.mysql.Driver</value>  
@@ -66,6 +55,7 @@
 	        <value>root</value>  
 	    </property>  
 	</bean>  
+	<!-- 多数据源管理 -->
 	<bean id="multipleDataSource" class="com.hjs.study.spring.support.MultipleDataSource">
         <property name="defaultTargetDataSource" ref="jdbcDataSource"/>
         <property name="targetDataSources">
@@ -84,6 +74,18 @@
 	 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 	 	<property name="basePackage" value="com.hjs.study.spring.dao,com.hjs.study.spring.ext.dao"></property>
 	 </bean>
+
+	 <!-- redis配置 -->
+    <import resource="classpath:conf/spring-redis.xml"/>
+    
+    <!-- cxf配置 暂时注释 -->
+	<!--     <import resource="classpath:META-INF/cxf/cxf.xml" />  
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />  
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />  
+    <bean id="hello" class="com.blackray.webservice.service.HelloWorldServiceImpl"/>实现类
+    address就是访问的地址 /HelloWorld?wsdl
+    <jaxws:endpoint id="helloWorld" implementor="#hello" address="/HelloWorld" />   --> 
+
 
 	<!-- 以下为使用配置方式配置AOP 本项目使用注解方式 -->
 	<!--AOP:

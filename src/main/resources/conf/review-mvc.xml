@@ -12,11 +12,30 @@
 	<!-- 自动扫描的包名 扫描所有组件（注解标记）  -->
     <context:component-scan base-package="com.hjs.study.spring" ></context:component-scan> 
     
-    <!-- 默认的注解映射的支持   不要使用此配置，会导致json乱码
+    <!-- 默认的注解映射的支持   不要使用此配置，会导致json乱码及无法进入拦截器
     <mvc:annotation-driven /> -->
     
-	<!-- 注解方式映射URL和Controller类 -->
-    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">  </bean>
+    
+    <!-- 拦截器链-->
+    <mvc:interceptors>  
+    	<mvc:interceptor>
+ 			<mvc:mapping path="/*"/>
+ 			<mvc:mapping path="/*/*"/>
+ 			<bean class="com.hjs.study.spring.aspect.ControllerInterceptorAdapter" ></bean> 
+    	</mvc:interceptor>
+    </mvc:interceptors>
+    
+    <!-- 拦截器实现类 另一种方式配置拦截器
+    <bean id="controllerInterceptorAdapter" class="com.hjs.study.spring.aspect.ControllerInterceptorAdapter">
+    	<property name="exceptUrl" value=".*/help.do" />
+    </bean> -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+    	<!-- <property name="interceptors">  
+	        <list>  
+	            <ref bean="controllerInterceptorAdapter"/>  
+	        </list>  
+	    </property> -->
+    </bean>
     
     <!-- 视图解释类 -->  
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
@@ -38,10 +57,7 @@
             </list>   
         </property>  
     </bean>
-	 <!-- 拦截器  
-    <mvc:interceptors>  
-        <bean class="com.core.mvc.MyInteceptor" />  
-    </mvc:interceptors>      -->  
+	
       
     <!-- 对静态资源文件的访问  方案一 （二选一） -->  
     <mvc:default-servlet-handler/>  
