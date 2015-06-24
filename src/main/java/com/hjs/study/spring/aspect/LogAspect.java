@@ -1,5 +1,8 @@
 package com.hjs.study.spring.aspect;
-
+/**
+ * AOP不能拦截Controller
+ * 拦截Controller应使用HandlerInterceptorAdapter的子类
+ */
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

@@ -33,7 +33,8 @@ public class TransactionTest {
           template.update(M_TEST_INSERT,new Object[]{100+i,"123shuai"});
       }
     }   
-    /**没有配置回滚机制时，默认出现异常也会提交*/
+    /**注解方式配置事务
+     * 如果没有配置回滚机制时，默认出现异常也会提交*/
     @Transactional(rollbackFor=Exception.class)
     public void deleteData() throws Exception{
     	for(int i=100;i<103;i++){
