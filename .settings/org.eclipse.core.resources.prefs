@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/blackray/webservice/client/WSClientForSpring.java=UTF-8
 encoding//src/main/java/com/hjs/study/spring/controller/CommonRedisController.java=UTF-8
 encoding//src/main/java/com/hjs/study/spring/controller/LoginController.java=UTF-8
 encoding//src/main/java/com/hjs/study/spring/test/model/Conversation.java=GBK

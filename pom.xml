@@ -80,6 +80,12 @@
 			<version>${junit.version}</version>
 			<!-- <scope>test</scope> -->
 		</dependency>
+		<!-- dwr -->
+		<dependency>
+			<groupId>org.directwebremoting</groupId>
+			<artifactId>dwr</artifactId>
+			<version>3.0.M1</version>
+		</dependency>
 		
 		<!-- apache -->
 		<dependency>
@@ -87,7 +93,12 @@
 		  <artifactId>commons-pool</artifactId>
 		  <version>1.5.4</version>
 		</dependency>
-		
+		<!-- dpcp连接池 -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN" "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+ 
+<dwr>
+  <allow>
+  	<!-- dwr处理类 -->
+	<create creator="spring" javascript="ChatService">
+      <param name="beanName" value="chatService"/>
+    </create>
+    <!-- js转化为的目标实体 -->
+	<convert converter="bean" match="com.hjs.example.model.User">
+		<param name="include" value="msg,time" />
+	</convert>
+  </allow>
+</dwr>

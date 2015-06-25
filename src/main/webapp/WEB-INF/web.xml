@@ -50,6 +50,24 @@
 		<servlet-name>review</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+	<servlet>
+	    <servlet-name>dwr-invoker</servlet-name>
+	    <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+	    <init-param>
+	        <param-name>debug</param-name>
+	        <param-value>true</param-value>
+	    </init-param>
+	    <!-- dwr的comet控制 -->
+	    <init-param>
+	      <param-name>pollAndCometEnabled</param-name>
+	      <param-value>true</param-value>
+	    </init-param>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>dwr-invoker</servlet-name>
+	    <url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
+	
 	<!-- session过期时间45分钟 -->
 	<session-config>
 		<session-timeout>3</session-timeout>

@@ -74,4 +74,32 @@
     
     <!-- 注解方式配置的事务 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+    	<!-- 以下为使用配置方式配置AOP-->
+	<!--AOP:
+		proxy-target-class值为false时使用JAVA动态代理，值为true时，使用cglib代理，但是cglib动态代理不支持面向切口编程，因此使用java动态代理
+		expression指定织入的规则、method指定切面方法
+		args(param) 括号中的参数是指参数的名称（id），注解方式实例化的bean其名称为类名的小写；如果是任意参数，则是 ..
+	 -->
+	
+<!-- 	<bean id="logAspect" class="com.hjs.study.spring.aspect.LogAspect"></bean>
+ 	<aop:config proxy-target-class="false">	
+		<aop:aspect ref="logAspect">
+			<aop:pointcut expression="execution(* *.getU*(..))" id="pointcut-1"/>
+			<aop:pointcut expression="execution(* *.save*BasicArticle(..)) and args(article))" id="pointcut-2"/>
+			<aop:before method="signBeforeM" pointcut-ref="pointcut-1"/>
+			<aop:after method="signAfterM"  pointcut-ref="pointcut-1"/>
+			<aop:before method="handleContent" pointcut-ref="pointcut-2"/>
+		</aop:aspect>
+	</aop:config> -->
+	<!-- 数据源自动切换AOP -->
+ 	<!-- <bean id="dschangeAspect" class="com.hjs.study.spring.aspect.DataSourceChooseAspect"></bean>
+	<aop:config proxy-target-class="false">	
+		<aop:aspect ref="dschangeAspect">article是传入的参数
+			<aop:pointcut expression="execution(* com.hjs.study.spring.dao.*.*(..))" id="changepointcut"/>
+			<aop:pointcut expression="execution(* com.hjs.study.spring.ext.dao.*.*(..))" id="changepointcut-ext"/>
+			<aop:around method="turnToDefaultDataSource" pointcut-ref="changepointcut"/>
+			<aop:around method="turnToExtDataSource" pointcut-ref="changepointcut-ext"/>
+		</aop:aspect>
+	</aop:config> -->
 </beans>

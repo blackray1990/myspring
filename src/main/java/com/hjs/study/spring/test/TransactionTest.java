@@ -3,6 +3,7 @@ package com.hjs.study.spring.test;
 /**
  * 演示声明式事务用法
  */
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;

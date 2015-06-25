@@ -1,7 +1,7 @@
 package com.blackray.webservice.model;
 
 /**
- * ×Ô¶¨ÒåÊµÌåÀà
+ * å®ä½“ç±»
  * @author blackray
  *
  */

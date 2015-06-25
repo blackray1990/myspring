@@ -2,16 +2,16 @@ package com.blackray.webservice.service;
 
 import javax.xml.ws.Endpoint;
 /**
- * Ò²¿ÉÓÃspringµÄÒÀÀµ×¢Èë Ïê¼ûÏîÄ¿springÅäÖÃÎÄ¼ş
+ * ä¹Ÿå¯ç”¨springçš„ä¾èµ–æ³¨å…¥ è¯¦è§é¡¹ç›®springé…ç½®æ–‡ä»¶
  * @author Administrator
  *
  */
 public class WSService {
     public static void main(String[] args) {
               System.out.println("web service start");
-              HelloWorldService implementor= new HelloWorldServiceImpl();	//·şÎñÊµÏÖÀà
-              String address="http://localhost:8080/helloWorld";	//¹©Íâ²¿·ÃÎÊµÄwsdlµØÖ·?wsdl
-              Endpoint.publish(address, implementor);				//·¢²¼·şÎñ
+              HelloWorldService implementor= new HelloWorldServiceImpl();	//æœåŠ¡å®ç°ç±»
+              String address="http://localhost:8080/helloWorld";	//ä¾›å¤–éƒ¨è®¿é—®çš„wsdlåœ°å€?wsdl
+              Endpoint.publish(address, implementor);				//å‘å¸ƒæœåŠ¡
               System.out.println("web service started");
      }
 }
