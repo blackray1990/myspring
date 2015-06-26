@@ -34,11 +34,11 @@
 </select>
 
 <select id="createMenu"  parameterType="com.hjs.study.spring.bean.Menu">
-	insert into menus set text=#{text},url=#{url},parent=#{parent},isfolder=#{isFolder},template=#{template}
+	insert into menus set text=#{text},url=#{url},parent=#{parent},isfolder=#{isFolder},template=#{template},opentype=#{openType}
 </select>
 
 <select id="editMenu"  parameterType="com.hjs.study.spring.bean.Menu">
-	update menus set text=#{text},url=#{url},parent=#{parent},isfolder=#{isFolder},template=#{template}
+	update menus set text=#{text},url=#{url},parent=#{parent},isfolder=#{isFolder},template=#{template},opentype=#{openType}
 	where id=#{id}
 </select>
 

@@ -14,6 +14,8 @@ public class Article {
 	private String content;
 	
 	private String marks;
+	//对应的文章id
+	private int menuId;
 
 	public int getId() {
 		return id;
@@ -47,6 +49,14 @@ public class Article {
 
 	public void setMarks(String marks) {
 		this.marks = marks;
+	}
+
+	public int getMenuId() {
+		return menuId;
+	}
+
+	public void setMenuId(int menuId) {
+		this.menuId = menuId;
 	}
 	
 }

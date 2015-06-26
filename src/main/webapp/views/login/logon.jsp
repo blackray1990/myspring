@@ -34,7 +34,7 @@
 						}
 						
 					}else{		//使用iframe 共同的模板node.url
-						url = node.template+"?title="+title+"&url="+encodeURIComponent(url);
+						url = node.template+"?title="+title+"&menuId="+node.id+"&url="+encodeURIComponent(url);
 					}
 					$('#tabs').tabs('add',{    
 						id:"tab1",

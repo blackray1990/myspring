@@ -20,6 +20,6 @@
 </select>
 
 <select id="queryBasicArticle" parameterType="com.hjs.study.spring.bean.Article" resultMap="articles">
-	select * from article where 1=1 and title=#{title}
+	select * from article where 1=1 and menuid=#{menuId}
 </select>
 </mapper>

@@ -8,7 +8,7 @@
 </script>
 <body>
 	<!-- 文章发布固定引用jsp param.url是链接的真正地址 -->
-	<iframe scrolling="auto" style="height: 99%;width: 100%;border: none;" src="${param.url }?title=${param.title }"></iframe>
+	<iframe scrolling="auto" style="height: 99%;width: 100%;border: none;" src="${param.url }?title=${param.title }&menuId=${param.menuId}"></iframe>
 	
 </body>
 </html>
