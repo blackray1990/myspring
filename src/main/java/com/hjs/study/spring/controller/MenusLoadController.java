@@ -35,7 +35,6 @@ public class MenusLoadController extends BaseController{
 //		response.setContentType("text/html;charset=UTF-8");
 		String content = menuService.getAllMenus();
 		System.out.println(content);
-//		content = "[{\"children\":[{\"children\":[],\"id\":12,\"isFolder\":0,\"parent\":15,\"parentText\":\"友情链接\",\"template\":\"article/iframe.jsp\",\"text\":\"百度\",\"url\":\"http://www.baidu.com\"}],\"id\":15,\"isFolder\":1,\"location\":0,\"parent\":0,\"parentText\":\"\",\"state\":\"closed\",\"template\":\"\",\"text\":\"友情链接\",\"url\":\"\"}]";
 		return content;
 	}
 	

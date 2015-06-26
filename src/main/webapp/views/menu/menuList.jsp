@@ -14,11 +14,7 @@
 				$("#mfolder").val(node.isFolder);
 				$("#mparent").val(node.parent);
 				$("#mparenttext").val(node.parentText);
-				if(node.url){
-					$("#murl").val(node.url);
-				}else{
-					$("#murl").val(node.urltent);
-				}
+				$("#murl").val(node.url);
 				$("#mtemplate").val(node.template);
 			}
 		});
@@ -37,11 +33,7 @@
 				$("#mfolder").val(node.isFolder);
 				$("#mparent").val(node.parent);
 				$("#mparenttext").val(node.parentText);
-				if(node.url){
-					$("#murl").val(node.url);
-				}else{
-					$("#murl").val(node.urltent);
-				}
+				$("#murl").val(node.url);
 				
 				$("#mtemplate").val(node.template);
 			}
@@ -162,6 +154,13 @@
     				<tr>
     					<td>模板</td><td class="input_td"><input type="text" name="template" id="mtemplate" class="nowrite"><br/></td>
     					<td style="display:none;">id</td><td style="display:none;"><input type="text" name="id" id="mid" value="0"><input type="text" id="operation" name="operation"><br/></td>
+    					<td>打开方式</td>
+    					<td>
+    						<select name="openType">
+    							<option value="1">tab打开</option>
+    							<option value="2">新标签页打开</option>
+    						</select>
+    					</td>
     				</tr>
     				<tr height="100px">
     					<td colspan="4">

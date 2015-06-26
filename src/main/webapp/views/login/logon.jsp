@@ -24,18 +24,17 @@
 				}else{
 					// 创建一个新的tab    
 					var title = encodeURIComponent(node.text);
-					var url = "";
+					var url = node.url;
 					if(node.template==""){	//不使用iframe
-						if(node.url){
-							url = node.url+"?title="+title;
+						if(node.openType=="1"){
+							url = url+"?title="+title;
 						}else{
-							url = node.urltent;
 							window.open(url);
 							return;
 						}
 						
 					}else{		//使用iframe 共同的模板node.url
-						url = node.template+"?title="+title+"&url="+encodeURIComponent(node.url);
+						url = node.template+"?title="+title+"&url="+encodeURIComponent(url);
 					}
 					$('#tabs').tabs('add',{    
 						id:"tab1",

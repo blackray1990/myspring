@@ -14,7 +14,10 @@
 </resultMap>
 
 <select id="getUserForLogin" parameterType="com.hjs.study.spring.bean.User" resultType="com.hjs.study.spring.bean.User">
-	SELECT * FROM user WHERE isenable=1 and username=#{userName} AND password=#{password}
+	SELECT
+		t.id,t.name,t.role,t.userName,t.desc
+	FROM user t
+	WHERE t.isenable=1 and t.username=#{userName} AND t.password=#{password}
 </select>
 
 <select id="getAllUsers" resultMap="userlist">

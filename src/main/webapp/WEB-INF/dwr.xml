@@ -8,7 +8,7 @@
       <param name="beanName" value="chatService"/>
     </create>
     <!-- js转化为的目标实体 -->
-	<convert converter="bean" match="com.hjs.example.model.User">
+	<convert converter="bean" match="com.hjs.study.spring.chat.Message">
 		<param name="include" value="msg,time" />
 	</convert>
   </allow>

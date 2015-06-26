@@ -9,9 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("chat")
 public class ChatController {
 
+	/**
+	 * 跳转到聊天界面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("chatRoom")
 	public String chatRoom(HttpServletRequest request){
-		System.out.println("come here");
+
 		return "chat/chat";
 	}
 }

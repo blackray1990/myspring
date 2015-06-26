@@ -23,7 +23,7 @@
     <!-- 打开aop 支持注解 -->
     <aop:aspectj-autoproxy/> 
     <!-- 扫描切面并注入 使用注解方式配置切面 -->
-	<context:component-scan base-package="com.hjs.study.spring.aspect"/>
+	<context:component-scan base-package="com.hjs.study.spring.aspect,com.hjs.study.spring.chat"/>
        
     <import resource="classpath:conf/spring-redis.xml"/>
     <import resource="classpath:conf/spring-jdbc.xml"/>

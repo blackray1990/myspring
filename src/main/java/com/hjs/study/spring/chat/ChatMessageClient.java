@@ -13,6 +13,8 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
+
+import com.hjs.study.spring.util.DateUtil;
  
 /**
  * <b>function:</b>监听客户端事件，想客户端推出消息
@@ -21,6 +23,11 @@ import org.springframework.web.context.ServletContextAware;
 public class ChatMessageClient implements ApplicationListener, ServletContextAware {
     
     private ServletContext ctx;
+    
+    public ChatMessageClient() {
+		System.out.println("client构造方法");
+	}
+    
     public void setServletContext(ServletContext ctx) {
         this.ctx = ctx;
     }
@@ -31,14 +38,13 @@ public class ChatMessageClient implements ApplicationListener, ServletContextAwa
         if (event instanceof ChatMessageEvent) {
             Message msg = (Message) event.getSource();
             ServerContext context = ServerContextFactory.get();
-            //获得客户端所有chat页面script session连接数
- 
-            Collection<ScriptSession> sessions = context.getScriptSessionsByPage(ctx.getContextPath() + "/chat.jsp");
+            //获得客户端所有chat页面scriptsession连接数 
+            //括号中的参数需要指向聊天页面所在的地址栏地址
+            Collection<ScriptSession> sessions = context.getScriptSessionsByPage(ctx.getContextPath() + "/chat/chatRoom.do");
             for (ScriptSession session : sessions) {
                 ScriptBuffer sb = new ScriptBuffer();
                 Date time = msg.getTime();
-                String s = time.getYear() + "-" + (time.getMonth() + 1) + "-" +  time.getDate() + " " 
-                        +  time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
+                String s = DateUtil.parseToString(time, "HH:mm:ss");
                 //执行setMessage方法
  
                 sb.appendScript("showMessage({msg: '")

@@ -68,6 +68,7 @@ public class LoginController extends BaseController{
 			return "default";
 		}
 		map.addAttribute("username",user1.getUserName());
+		request.getSession().setAttribute("USER", user1);
 		request.getSession().setAttribute("contextPaths", request.getContextPath());
 		request.getSession().setAttribute(sessionId, user1.getUserName());
 		return "login/logon";

@@ -15,8 +15,6 @@ public class Menu {
 	
 	private String url;
 	
-	private String urltent;
-	
 	private int location;
 	
 	private int isFolder;
@@ -30,6 +28,9 @@ public class Menu {
 	private List<Menu> children;
 	
 	private String state;
+	
+	//页面展现方式
+	private String openType;
 
 	public int getId() {
 		return id;
@@ -115,11 +116,12 @@ public class Menu {
 		this.state = state;
 	}
 
-	public String getUrltent() {
-		return urltent;
+	public String getOpenType() {
+		return openType;
 	}
 
-	public void setUrltent(String urltent) {
-		this.urltent = urltent;
+	public void setOpenType(String openType) {
+		this.openType = openType;
 	}
+	
 }
