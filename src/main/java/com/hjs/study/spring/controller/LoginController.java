@@ -53,15 +53,19 @@ public class LoginController extends BaseController{
 			map.addAttribute("errordtl", "登录超时，请重新登录!");
 			return "default";
 		}
-		Object kaptchaTmp = request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
-		if(kaptchaTmp==null){
-			return "default";
+		//自动登录不校验验证码
+		if(!Constants.NUM_STR_1.equals(request.getParameter("auto"))){
+			Object kaptchaTmp = request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+			if(kaptchaTmp==null){
+				return "default";
+			}
+			String sysKaptcha = kaptchaTmp.toString();
+			if(!sysKaptcha.equalsIgnoreCase(user.getKaptcha())){
+				map.addAttribute("errordtl","验证码错误!");
+				return "default";
+			}
 		}
-		String sysKaptcha = kaptchaTmp.toString();
-		if(!sysKaptcha.equalsIgnoreCase(user.getKaptcha())){
-			map.addAttribute("errordtl","验证码错误!");
-			return "default";
-		}
+		
 		User user1 = loginService.getUser(user);
 		if(user1==null){
 			map.put("msg", FAIlURE);
@@ -79,8 +83,8 @@ public class LoginController extends BaseController{
 	 */
 	@RequestMapping(value="logout")
 	public String logout(HttpServletRequest request){
-//		String sessionId = getJSESSIONID(request);
-//		request.getSession().removeAttribute(sessionId);
+		String sessionId = request.getAttribute(Constants.JSESSIONID).toString();
+		request.getSession().removeAttribute(sessionId);
 		return "default";
 	}
 	

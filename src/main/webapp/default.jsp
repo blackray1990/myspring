@@ -5,14 +5,20 @@
 <head>
 	<title>系统登陆-</title>
 </head>
-<link rel="stylesheet" type="text/css" href="plugins/easyui-1.3.6/themes/gray/easyui.css">   
-<link rel="stylesheet" type="text/css" href="plugins/easyui-1.3.6/themes/icon.css">   
+<%@ include file="views/include.jsp" %>
 <link rel="stylesheet" type="text/css" href="style/common.css"> 
-<script type="text/javascript" src="plugins/easyui-1.3.6/jquery.min.js"></script>   
-<script type="text/javascript" src="plugins/easyui-1.3.6/jquery.easyui.min.js"></script> 
-<script type="text/javascript" src="plugins/jquery.json-2.2.min.js"></script> 
+<script src="../sea-modules/seajs/seajs/2.2.0/sea.js"></script>
 <script>
 	$(document).ready(function(){
+		
+		var username = $.cookie("userName");
+		var password = $.cookie("password");
+		if(username&&password){
+			$("#userName").val(username);
+			$("#password").val(password);
+			$("#remdiv").append("<input type='hidden' name='auto' value='1'/>");
+			$("#logon").submit();
+		}
 		
 		var msg = $("#msg").val();
 		if(msg=="failure"){
@@ -24,6 +30,13 @@
 		});
 		//登录
 		$("#submitData").click(function(){
+			if($("#rempass").is(":checked")){
+				$.cookie("userName","hejinsheng",{expires:7});	//保存7天
+				$.cookie("password","123456",{expires:7});
+			}else{
+				$.cookie("userName","");
+				$.cookie("password","");
+			}
 			$("#logon").submit();
 		});
 	});
@@ -36,22 +49,23 @@ tomcat8080端口
 	<input type="hidden" id="msg" value="${msg}"/>	<!-- 取得ModelMap中的信息 -->
 	
 	<form id="logon" method="post" action="logonsys.do">
-	<div id="p" class="easyui-panel" style="width:300px;padding:10px;"  title="系统登陆" data-options="collapsible:false" align="center">   
+	<div id="p" class="easyui-panel" style="width:300px;padding:10px;"  title="系统登陆" data-options="collapsible:false" align="left">   
 		<div class="errorinfo">${errordtl }</div>
 		<div>   
 	        <label for="name">用户名:</label>   
-	        <input class="easyui-validatebox" type="text" name="userName" data-options="required:false" />   
+	        <input class="easyui-validatebox" type="text" id="userName" name="userName" data-options="required:false" />   
 	    </div><br/>
 	    <div>   
-	        <label for="email">密&nbsp;&nbsp;码:</label>   
-	        <input class="easyui-validatebox" type="password" name="password" data-options="required:false" />   
+	        <label for="email">密&nbsp;码:</label>   
+	        <input class="easyui-validatebox" type="password" id="password" name="password" data-options="required:false" />   
 	    </div><br/>
 	    <div>   
 	        <label for="email">验证码:</label>   
 	        <input class="shorttext" type="text" name="kaptcha" />  
 	        <img src="kaptcha.jpg" class="kaptcha" /> <br>
 	    </div><br/>
-	    <!-- <input class="com-btn" type="submit" value="提交" style="height:40px;width:80px;"> -->
+	    <div id="remdiv"><input type="checkbox" id="rempass">7天内免登录</div>
+
 	    <a href="#" class="easyui-linkbutton l-btn l-btn-large cuslarge" id="submitData">
 	    	<span class="l-btn-left" style="padding-top: 3px;"><span class="l-btn-text">提交</span></span>
 	    </a>

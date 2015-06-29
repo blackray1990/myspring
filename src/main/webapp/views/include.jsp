@@ -6,6 +6,7 @@
 %>
 
 <script type="text/javascript" src="plugins/jquery.min.js"></script> 
+<script type="text/javascript" src="plugins/jquery.cookie.js"></script> 
 <script type="text/javascript" src="plugins/jquery.form.js"></script>
 <link rel="stylesheet" type="text/css" href="plugins/easyui-1.3.6/themes/gray/easyui.css">   
 <link rel="stylesheet" type="text/css" href="plugins/easyui-1.3.6/themes/icon.css">   

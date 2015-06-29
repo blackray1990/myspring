@@ -64,6 +64,7 @@
 		//退出登录
 		$("#logout").click(function(){
 			if(confirm("确认退出系统吗?")){
+				$.cookie("password","");	//清除自动登录信息
 				document.location.href="${sessionScope.contextPaths}/logout.do";	
 			}
 		});
