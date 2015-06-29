@@ -7,7 +7,7 @@
 </head>
 <%@ include file="views/include.jsp" %>
 <link rel="stylesheet" type="text/css" href="style/common.css"> 
-<script src="../sea-modules/seajs/seajs/2.2.0/sea.js"></script>
+<script src="scripts/sea-modules/seajs/seajs/2.2.0/sea.js"></script>
 <script>
 	$(document).ready(function(){
 		

@@ -3,47 +3,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>系统登陆-</title>
+	<title>系统登陆----</title>
 </head>
+
 <%@ include file="include.jsp" %>
+
 <link rel="stylesheet" type="text/css" href="style/common.css"> 
 
+<script src="plugins/sea-modules/seajs/seajs/2.2.0/sea.js"></script>
+
 <script>
-	$(document).ready(function(){
-		
-		var username = $.cookie("userName");
-		var password = $.cookie("password");
-		if(username&&password){
-			$("#userName").val(username);
-			$("#password").val(password);
-			$("#remdiv").append("<input type='hidden' name='auto' value='1'/>");
-			$("#logon").submit();
-		}
-		
-		var msg = $("#msg").val();
-		if(msg=="failure"){
-			$.messager.alert('提示','<br/> 登陆失败，用户名或密码错误！','info');    
-		}
-		//刷新验证码
-		$(".kaptcha").click(function(){
-			$(this).attr("src","kaptcha.jpg?"+Math.floor(Math.random()*100));
-		});
-		//登录
-		$("#submitData").click(function(){
-			if($("#rempass").is(":checked")){
-				$.cookie("userName","hejinsheng",{expires:7});	//保存7天
-				$.cookie("password","123456",{expires:7});
-			}else{
-				$.cookie("userName","");
-				$.cookie("password","");
-			}
-			$("#logon").submit();
-		});
+	seajs.config({
+	  base: "/myspring/plugins/sea-modules/",
+	  alias: {
+	    "jquery": "jquery/jquery/1.10.1/jquery.js"
+	  }
 	});
-	
+
+	// 加载入口模块
+	seajs.use("/myspring/scripts/default",function(page){
+		page.init("${sesstionScope}");
+	});
 </script>
 
-<body style="background-image: url('images/Desert.jpg');background-size:cover;">	<!-- cover为自动填充 -->
+<body style="background-image: url('images/Desert.jpg');background-size:cover;" >	<!-- cover为自动填充 -->
 tomcat8080端口
 <div align="center" style="margin-top: 200px;">
 	<input type="hidden" id="msg" value="${msg}"/>	<!-- 取得ModelMap中的信息 -->
