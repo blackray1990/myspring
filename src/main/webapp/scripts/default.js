@@ -3,26 +3,23 @@ define(function(require, exports, module) {
 
   // 通过 require 引入依赖
   var $ = require('jquery');
-  require('/myspring/plugins/jquery/jquery.cookie');
-  require('/myspring/plugins/easyui-1.3.6/jquery.easyui.min');
-//  require('/myspring/plugins/jHtmlArea/scripts/jquery-ui-1.7.2.custom.min');
-//  require('/myspring/plugins/jHtmlArea/scripts/jHtmlArea-0.8');
+  require('../plugins/jquery/jquery.cookie');
+  require('../plugins/easyui-1.3.6/jquery.easyui.min');
 
   entity = {
-		  init:function(param){
-			  alert(param);
+		  init:function(){
 			  this.bundle();
 		  },
 		  bundle:function(){
 			  	//是否免登录
-			  	var username = $.cookie("userName");
+			  /*var username = $.cookie("userName");
 				var password = $.cookie("password");
 				if(username&&password){
 					$("#userName").val(username);
 					$("#password").val(password);
 					$("#remdiv").append("<input type='hidden' name='auto' value='1'/>");
 					$("#logon").submit();
-				}
+				}*/
 				
 				//登录提示信息
 				var msg = $("#msg").val();
@@ -48,9 +45,7 @@ define(function(require, exports, module) {
 		  }
   }
 
-  // 通过 exports 对外提供接口
-  //exports.doSomething = ...
-  // 或者通过 module.exports 提供整个接口
+  // 通过 module.exports 提供整个接口
   module.exports = entity;
 
 });

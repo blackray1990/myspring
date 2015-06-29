@@ -1,90 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<%@ include file="../include.jsp" %>
 <html>
-<style>
-	.content {
-		overflow: auto;
-		background-color: #fafafa;
-		margin-left: 20px;
-		margin-right: 20px;
-		border: 1px gray solid;
-		min-height: 200px;
-	}
-</style>
-
- 
-<script type="text/javascript" src="../plugins/jquery.min.js"></script> 
-
-<link rel="stylesheet" type="text/css" href="../plugins/easyui-1.3.6/themes/gray/easyui.css">   
-<link rel="stylesheet" type="text/css" href="../plugins/easyui-1.3.6/themes/icon.css">   
-<script type="text/javascript" src="../plugins/easyui-1.3.6/jquery.easyui.min.js"></script> 
-
-<script type="text/javascript" src="../plugins/jHtmlArea/scripts/jquery-ui-1.7.2.custom.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../plugins/jHtmlArea/style/jqueryui/ui-lightness/jquery-ui-1.7.2.custom.css" />
-<script type="text/javascript" src="../plugins/jHtmlArea/scripts/jHtmlArea-0.8.js"></script>
-<link rel="stylesheet" type="text/css" href="../plugins/jHtmlArea/style/jHtmlArea.css" />
-
-<script type="text/javascript">
-	$(function(){
-		$("#inputArea").htmlarea();
-		
-		if("${article.id}"!=0){		//数据库中已存在时处理
-			$("#showtitle").text("${article.title}");
-			$("#content").addClass("content");
-			$("#content").html("${article.content}");
-			$("#panel").hide();		//默认隐藏编辑器
-			$("#switch").text("编辑");
-		}
-		
-		//发布
-		$("#art-submit").click(function(){
-			
-			var title = $("#title").val();
-			var temp = $("#inputArea").htmlarea('html');
-			temp = temp.replace(/\"/g,"'");
-			var content = encodeURIComponent(temp);	//地址栏参数编码
-			if(!confirm("是否确认发布？")){
-				return ;
-			}
-			var curl="";
-			var artid = "${article.id}";
-			var arttitle = "${article.title}";
-			if(artid==0){	//新增
-				curl = 'createArticle.do';
-			}else{			//修改
-				curl = 'editArticle.do?id='+artid;
-			}
-			$.ajax({
-				type : 'POST',   
-		        url : curl,  
-		        data : "content="+content+"&title="+title,  
-		        dataType : 'text',
-		        success : function(data){
-		        	if(data=="success"){
-		        		$.messager.alert('提示','<br/> 保存成功！','info');
-		        		window.location.reload();
-		        	}
-		        }
-			});
-			
-		});
-		
-		//编辑或隐藏编辑面板
-		$("#switch").click(function(){
-			var oldcontent = "${article.content}";
-			$("#inputArea").htmlarea('html',oldcontent);
-			$('#panel').slideToggle('normal');
-			if($("#switch").text()=="编辑"){
-				$("#switch").text("取消");
-			}else{
-				$("#switch").text("编辑");
-			}
-		});
-		
-	}); 
-</script>
 <style>
 	.above {
 		background:#F5F5F5;float:right;
@@ -98,10 +16,18 @@
 		cursor: pointer;
 		width:40px;
 	}
+	.content {
+		overflow: auto;
+		background-color: #fafafa;
+		margin-left: 20px;
+		margin-right: 20px;
+		border: 1px gray solid;
+		min-height: 200px;
+	}
 </style>
 <body>
 	<div align="center" style="font-weight: bold;font-size: large;"><div id="showtitle"></div></div><br/>
-	<div id="switch" class="above onoff">取消</div>
+	<div id="switch" class="above onoff">取消4</div>
 	<div id="content" style="height:100%;"></div>
 	
 
@@ -113,4 +39,14 @@
 		
 	
 </body>
+<script>
+//加载入口模块
+	seajs.use("<%=contextPath%>/scripts/article/common_page",function(page){
+		page.init({
+			"id":"${article.id}",
+			"title":"${article.title}",
+			"content":"${article.content}"
+			});
+	});
+</script>
 </html>

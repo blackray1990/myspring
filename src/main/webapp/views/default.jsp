@@ -1,30 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="include.jsp" %>
+
 <html>
 <head>
 	<title>系统登陆----</title>
 </head>
 
-<%@ include file="include.jsp" %>
+
 
 <link rel="stylesheet" type="text/css" href="style/common.css"> 
-
-<script src="plugins/sea-modules/seajs/seajs/2.2.0/sea.js"></script>
-
-<script>
-	seajs.config({
-	  base: "/myspring/plugins/sea-modules/",
-	  alias: {
-	    "jquery": "jquery/jquery/1.10.1/jquery.js"
-	  }
-	});
-
-	// 加载入口模块
-	seajs.use("/myspring/scripts/default",function(page){
-		page.init("${sesstionScope}");
-	});
-</script>
 
 <body style="background-image: url('images/Desert.jpg');background-size:cover;" >	<!-- cover为自动填充 -->
 tomcat8080端口
@@ -56,4 +42,11 @@ tomcat8080端口
 	</form>  
 </div>
 </body>
+
+<script>
+//加载入口模块
+	seajs.use("<%=contextPath%>/scripts/default",function(page){
+		page.init();
+	});
+</script>
 </html>
