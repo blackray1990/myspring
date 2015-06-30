@@ -9,23 +9,8 @@
 </head>
 <%@ include file="../include.jsp" %>
 
-<script type="text/javascript" src="${pageContext.request.contextPath }/dwr/engine.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/dwr/util.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/dwr/interface/ChatService.js"></script>
 <script type="text/javascript">
-	function sendMsg(){
-        var time = new Date();
-	    var content = dwr.util.getValue("content");
-	    var name = dwr.util.getValue("userName");
-	    var info = encodeURI(encodeURI(name + ":\n" + content+"\n"));
-	    var msg = {"id":1,"msg": info, "time": time};
-	    dwr.util.setValue("content", "");
-	    if (!!content) {
-	        ChatService.sendMessage(msg);
-	    } else {
-	        alert("发送的内容不能为空！");
-	    }
-	}
+	//dwz回调方法使用seajs管理
     function showMessage(data) {
 	    var message = decodeURI(decodeURI(data.msg));
 	    var text = dwr.util.getValue("info");
@@ -34,7 +19,7 @@
 	    } else {
 	        dwr.util.setValue("info", data.time + "  " + message);
 	    }
-	} 
+	}
 </script>
 <!-- dwr 必须设定为反向ajax，否则不会自动触发showMessage事件 -->
 <body onload="dwr.engine.setActiveReverseAjax(true);">   
@@ -48,8 +33,14 @@
       </div>
       <div style="margin-top: 10px">
       	消息：<textarea rows="5" cols="30" id="content"></textarea>
-      	<input type="button" value=" 发送 " onclick="sendMsg()" style="height: 25px; width: 85px;"/>
+      	<input type="button" value=" 发送 " id="subSend" style="height: 25px; width: 85px;"/>
       </div>
   </div>  
 </body> 
+<script>
+//加载入口模块
+	seajs.use("<%=contextPath%>/scripts/chat/chat",function(page){
+		page.init();
+	});
+</script>
 </html>

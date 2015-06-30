@@ -46,7 +46,7 @@ public class ChatMessageClient implements ApplicationListener, ServletContextAwa
                 Date time = msg.getTime();
                 String s = DateUtil.parseToString(time, "HH:mm:ss");
                 //执行setMessage方法
- 
+                System.out.println("sessionId:"+session.getId());
                 sb.appendScript("showMessage({msg: '")
                 .appendScript(msg.getMsg())
                 .appendScript("', time: '")
@@ -54,8 +54,7 @@ public class ChatMessageClient implements ApplicationListener, ServletContextAwa
                 .appendScript("'})");
                 System.out.println(sb.toString());
                 //执行客户端script session方法，相当于浏览器执行JavaScript代码
-                  //上面就会执行客户端浏览器中的showMessage方法，并且传递一个对象过去
- 
+                //上面就会执行客户端浏览器中的showMessage方法，并且传递一个对象过去
                 session.addScript(sb);
             }
         }

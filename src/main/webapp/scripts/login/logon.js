@@ -3,10 +3,10 @@ define(function(require, exports, module) {
 
   // 通过 require 引入依赖
   var $ = require('jquery');
-  require('../plugins/jquery/jquery.cookie');
-  require('../plugins/easyui-1.3.6/jquery.easyui.min');
-  require('../plugins/jHtmlArea/scripts/jquery-ui-1.7.2.custom.min');
-  require('../plugins/jHtmlArea/scripts/jHtmlArea-0.8');
+  require('../../plugins/jquery/jquery.cookie');
+  require('../../plugins/easyui-1.3.6/jquery.easyui.min');
+  require('../../plugins/jHtmlArea/scripts/jquery-ui-1.7.2.custom.min');
+  require('../../plugins/jHtmlArea/scripts/jHtmlArea-0.8');
 
   entity = {
 		  init:function(){
