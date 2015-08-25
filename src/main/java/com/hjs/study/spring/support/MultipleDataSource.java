@@ -1,5 +1,8 @@
 package com.hjs.study.spring.support;
 
+import java.sql.SQLFeatureNotSupportedException;
+import java.util.logging.Logger;
+
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 public class MultipleDataSource extends AbstractRoutingDataSource {
@@ -15,6 +18,11 @@ public class MultipleDataSource extends AbstractRoutingDataSource {
 	protected Object determineCurrentLookupKey() {
 		
 		return dataSourceKey.get();
+	}
+
+	public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

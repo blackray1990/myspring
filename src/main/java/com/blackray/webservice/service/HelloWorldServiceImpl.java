@@ -9,18 +9,15 @@ import com.blackray.webservice.model.Person;
 @WebService
 public class HelloWorldServiceImpl implements HelloWorldService {
 
-	@Override
 	public String sayHi(String text) {
 		return "Hello, "+text;
 	}
 
-	@Override
 	public String sayHiToUser(Person person) {
 		
-		return "Hello, "+person.getName()+"��"+person.getDescription()+"��";
+		return "Hello, "+person.getName()+"--"+person.getDescription()+"--";
 	}
 
-	@Override
 	public String[] SayHiToUserList(List<Person> personList) {
 		
 		String[] persons = null;
